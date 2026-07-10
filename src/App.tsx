@@ -242,21 +242,37 @@ export default function App() {
 
             {/* Hero graphics */}
             <div className="lg:col-span-5 relative flex justify-center">
-              <div className="relative w-full max-w-sm sm:max-w-md aspect-square bg-white rounded-3xl border border-slate-100 p-8 flex flex-col justify-between shadow-xl overflow-hidden">
+              <div className="relative w-full max-w-sm sm:max-w-md bg-white rounded-3xl border border-slate-100 p-6 flex flex-col justify-between shadow-xl overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-violet-100 rounded-full blur-2xl pointer-events-none"></div>
                 
-                {/* Simulated Medical App Frame */}
-                <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-teal-500 rounded-full animate-ping"></div>
-                    <span className="text-xs font-semibold tracking-wider uppercase text-teal-700">Mounjaro Clinical Status</span>
+                {/* Stunning Modern Clinical/Practitioner Photo */}
+                <div className="relative h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 shadow-sm">
+                  <img 
+                    src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=800&q=80" 
+                    alt="Сучасна медична клініка"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-400 rounded-full animate-ping"></span>
+                    <span className="text-[10px] font-bold text-teal-100 uppercase tracking-wider bg-teal-950/80 px-2 py-0.5 rounded backdrop-blur-xs border border-teal-500/20">
+                      Медичний супровід
+                    </span>
                   </div>
-                  <span className="text-[10px] font-mono text-slate-400">EMA Approved</span>
+                </div>
+
+                {/* Simulated Medical App Frame */}
+                <div className="flex justify-between items-center pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-semibold tracking-wider uppercase text-teal-700">Клінічний статус</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-400">Схвалено EMA</span>
                 </div>
 
                 {/* KwikPen Graphic & Dose Dial */}
-                <div className="my-6 flex flex-col items-center">
-                  <div className="w-full bg-slate-50 rounded-2xl p-5 border border-slate-100 space-y-4">
+                <div className="my-4 flex flex-col items-center">
+                  <div className="w-full bg-slate-50 rounded-2xl p-4 border border-slate-100 space-y-3">
                     <div className="flex justify-between items-center">
                       <span className="text-xs text-slate-500">Дозування</span>
                       <span className="text-xs font-bold text-teal-950 bg-teal-50 px-2 py-0.5 rounded border border-slate-100">2.5 мг / 5 мг / 10 мг</span>
@@ -276,87 +292,16 @@ export default function App() {
                 </div>
 
                 {/* Success Card simulation */}
-                <div className="bg-teal-950 text-white rounded-2xl p-5 space-y-3 shadow-lg relative">
+                <div className="bg-teal-950 text-white rounded-2xl p-4 space-y-2 shadow-lg relative">
                   <div className="absolute top-3 right-3">
                     <ShieldCheck className="w-5 h-5 text-teal-400" />
                   </div>
                   <div className="text-[10px] uppercase tracking-wider text-teal-300 font-bold">Очікуваний результат</div>
-                  <p className="text-sm font-medium leading-snug">
+                  <p className="text-xs sm:text-sm font-medium leading-snug">
                     «М'яке вивільнення від постійних думок про їжу, контроль ваги без стресу для організму.»
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Challenges Section */}
-      <section id="about" className="py-20 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
-              Коли вага перестає реагувати на звичні способи
-            </h2>
-            <p className="text-slate-600 text-base">
-              Організм людини — складна біологічна система. Іноді виснажливі тренування та жорсткі дієти перестають працювати через метаболічну адаптацію або гормональні чинники.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Card 1 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-all group">
-              <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-600 mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
-                <Scale className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-teal-950 mb-3">Вага не знижується</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Попри всі зусилля та обмеження, стрілка ваг тривалий час стоїть на місці («ефект плато») через сповільнення обміну речовин.
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-all group">
-              <div className="w-12 h-12 rounded-2xl bg-violet-50 flex items-center justify-center text-violet-600 mb-6 group-hover:bg-violet-600 group-hover:text-white transition-all">
-                <Activity className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-teal-950 mb-3">Апетит важко контролювати</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Постійні думки про їжу, вечірні зриви та фізіологічне відчуття голоду, що заважають дотримуватись будь-якого раціонального плану.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-all group">
-              <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-600 mb-6 group-hover:bg-teal-600 group-hover:text-white transition-all">
-                <AlertTriangle className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-teal-950 mb-3">Вплив на самопочуття</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Зайва вага провокує задишку, біль у суглобах, швидку втомлюваність та зниження загальної якості щоденного життя.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xs hover:shadow-md transition-all group">
-              <div className="w-12 h-12 rounded-2xl bg-violet-50 flex items-center justify-center text-violet-600 mb-6 group-hover:bg-violet-600 group-hover:text-white transition-all">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-teal-950 mb-3">Супутні ризики</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">
-                Поява медичних передумов: предіабет, підвищення артеріального тиску чи небезпечні коливання холестерину.
-              </p>
-            </div>
-          </div>
-
-          {/* Key Message */}
-          <div className="mt-12 bg-teal-950 text-white rounded-3xl p-8 md:p-12 relative overflow-hidden">
-            <div className="absolute right-0 bottom-0 w-80 h-80 bg-teal-900/40 rounded-full blur-3xl"></div>
-            <div className="max-w-3xl space-y-4 relative">
-              <span className="text-xs uppercase font-bold tracking-wider text-teal-400">Медичний консенсус</span>
-              <p className="text-xl md:text-2xl font-serif font-light leading-relaxed">
-                «У таких випадках лікар може розглядати медикаментозну підтримку як невід'ємну частину комплексного терапевтичного підходу для вашої безпеки.»
-              </p>
             </div>
           </div>
         </div>
@@ -369,7 +314,7 @@ export default function App() {
             
             <div className="lg:col-span-6 space-y-8">
               <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Подвійна синергія гормонів</span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
                 Як працює Мунджаро: Наука на варті вашого тіла
               </h2>
               
@@ -408,8 +353,24 @@ export default function App() {
 
             {/* Visual Process Flow */}
             <div className="lg:col-span-6">
-              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 space-y-8">
-                <h3 className="font-serif text-xl font-bold text-teal-950 text-center">Ланцюжок формування здорових звичок</h3>
+              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 space-y-6">
+                
+                {/* Elegant medicine illustration or syringe close-up */}
+                <div className="relative h-48 rounded-2xl overflow-hidden shadow-sm">
+                  <img 
+                    src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" 
+                    alt="Технологія KwikPen для точного дозування"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-4 left-4 right-4 text-white">
+                    <div className="text-[10px] font-bold text-teal-400 uppercase tracking-widest mb-1">Інноваційний механізм</div>
+                    <div className="text-sm font-semibold">Оригінальна технологія KwikPen® для точного та зручного введення</div>
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold text-teal-950 text-center">Ланцюжок формування здорових звичок</h3>
                 
                 <div className="space-y-6 relative">
                   {/* Decorative timeline line */}
@@ -444,7 +405,7 @@ export default function App() {
                     </div>
                     <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs grow">
                       <h4 className="font-bold text-teal-950 text-sm">Стабільний контроль ваги</h4>
-                      <p className="text-xs text-slate-500 mt-1">Організм формує корисні звички, забезпечуючи надійне утримання здорової маси тіла.</p>
+                      <p className="text-xs text-slate-500 mt-1">Організм формирує корисні звички, забезпечуючи надійне утримання здорової маси тіла.</p>
                     </div>
                   </div>
                 </div>
@@ -466,7 +427,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
             <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Клінічно доведено</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
               Що Мунджаро дає людині на практиці
             </h2>
             <p className="text-slate-600 text-base">
@@ -483,7 +444,7 @@ export default function App() {
                   <Clock className="w-6 h-6" />
                 </div>
                 <div className="text-xs font-bold text-teal-600 uppercase tracking-wide">Перевага 1</div>
-                <h3 className="font-serif text-2xl font-bold text-teal-950">Раз на тиждень — повна свобода</h3>
+                <h3 className="text-2xl font-bold text-teal-950">Раз на тиждень — повна свобода</h3>
                 <p className="text-slate-500 text-sm leading-relaxed max-w-lg">
                   Забудьте про складні щоденні схеми прийому ліків чи нагадування. Одна проста ін'єкція на тиждень мінімізує щоденну рутину та допомагає легко утримувати режим терапії.
                 </p>
@@ -501,7 +462,7 @@ export default function App() {
                   <Scale className="w-6 h-6" />
                 </div>
                 <div className="text-xs font-bold text-teal-400 uppercase tracking-wide">Перевага 2</div>
-                <h3 className="font-serif text-2xl font-bold">Зниження маси тіла від 15%</h3>
+                <h3 className="text-2xl font-bold">Зниження маси тіла від 15%</h3>
                 <p className="text-teal-200/80 text-sm leading-relaxed">
                   У клінічному дослідженні за участю понад 2500 дорослих пацієнтів середнє зниження маси тіла становило щонайменше 15% за 72 тижні активного лікування.
                 </p>
@@ -518,12 +479,12 @@ export default function App() {
                   <Target className="w-6 h-6" />
                 </div>
                 <div className="text-xs font-bold text-violet-600 uppercase tracking-wide">Перевага 3</div>
-                <h3 className="font-serif text-2xl font-bold text-teal-950">Результат у 85% пацієнтів</h3>
+                <h3 className="text-2xl font-bold text-teal-950">Результат у 85% пацієнтів</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
                   Понад 85% учасників клінічних випробувань досягли помітного та стійкого зниження маси тіла щонайменше на 5% за період терапії.
                 </p>
               </div>
-              <div className="mt-8 font-serif text-3xl font-extrabold text-violet-950">
+              <div className="mt-8 text-3xl font-extrabold text-violet-950">
                 &gt; 85% успіху
               </div>
             </div>
@@ -535,7 +496,7 @@ export default function App() {
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div className="text-xs font-bold text-teal-600 uppercase tracking-wide">Перевага 4</div>
-                <h3 className="font-serif text-2xl font-bold text-teal-950">Керований профіль безпеки</h3>
+                <h3 className="text-2xl font-bold text-teal-950">Керований профіль безпеки</h3>
                 <p className="text-slate-500 text-sm leading-relaxed">
                   Найчастіші побічні реакції з боку шлунково-кишкового тракту (ШКТ) зазвичай носять легкий або помірний характер. Вони найчастіше виникають на початковому етапі або під час зміни дози й поступово минають.
                 </p>
@@ -558,7 +519,7 @@ export default function App() {
               <span className="text-xs uppercase font-bold tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
                 Експрес-тест
               </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-teal-950">
+              <h2 className="text-2xl sm:text-3xl font-bold text-teal-950">
                 Чи підходить вам терапія Мунджаро?
               </h2>
               <p className="text-xs text-slate-500 max-w-lg mx-auto">
@@ -582,7 +543,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="font-serif text-lg font-bold text-teal-950 leading-snug">
+                  <h3 className="text-lg font-bold text-teal-950 leading-snug">
                     {TEST_QUESTIONS[testStep].question}
                   </h3>
                   
@@ -648,7 +609,7 @@ export default function App() {
             
             <div className="space-y-8">
               <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Кому може бути корисно</span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
                 Кому дійсно підходить Мунджаро?
               </h2>
               <p className="text-slate-600 text-base leading-relaxed">
@@ -704,11 +665,11 @@ export default function App() {
                 <div className="flex gap-1 text-teal-500 text-xs font-bold uppercase tracking-wide">
                   <span>Доказова медицина</span>
                 </div>
-                <p className="font-serif text-lg text-slate-700 italic">
+                <p className="text-lg text-slate-700 italic">
                   «Наша мета — не просто тимчасово знизити цифру на вагах. Ми прагнемо допомогти пацієнту стабілізувати метаболізм, покращити якість життя та зберегти досягнутий успіх на довгі роки.»
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold font-serif text-sm">
+                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-sm">
                     ДМ
                   </div>
                   <div>
@@ -728,7 +689,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
             <span className="text-xs uppercase font-bold tracking-wider text-violet-600">Порівняльний аналіз</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
               Чим Мунджаро відрізняється від альтернатив?
             </h2>
             <p className="text-slate-600 text-sm">
@@ -739,7 +700,7 @@ export default function App() {
           <div className="overflow-x-auto rounded-3xl border border-slate-100 shadow-sm">
             <table className="w-full text-left border-collapse bg-white min-w-[700px]">
               <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-900 font-serif text-sm">
+                <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-900 text-sm">
                   <th className="p-6 font-bold">Характеристика</th>
                   <th className="p-6 font-bold text-teal-900 bg-teal-50/40 relative">
                     Мунджаро (Tirzepatide)
@@ -812,7 +773,7 @@ export default function App() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
             <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Професійна довідка</span>
-            <h2 className="font-serif text-3xl font-bold text-teal-950 tracking-tight">
+            <h2 className="text-3xl font-bold text-teal-950 tracking-tight">
               Часті питання та відповіді
             </h2>
             <p className="text-slate-600 text-sm">
@@ -832,7 +793,7 @@ export default function App() {
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                     className="w-full text-left p-6 flex justify-between items-center gap-4 text-slate-800 hover:text-teal-950 transition-colors"
                   >
-                    <span className="font-serif font-bold text-sm sm:text-base">{faq.q}</span>
+                    <span className="font-bold text-sm sm:text-base">{faq.q}</span>
                     <span className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${isOpen ? 'bg-teal-50 text-teal-600 rotate-180' : 'bg-slate-50 text-slate-500'}`}>
                       <ChevronDown className="w-4 h-4" />
                     </span>
@@ -863,7 +824,7 @@ export default function App() {
               
               <div className="lg:col-span-6 space-y-6">
                 <span className="text-xs uppercase font-bold tracking-wider text-teal-400">Індивідуальний підхід</span>
-                <h2 className="font-serif text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
                   Зробіть перший крок до керованого контролю ваги
                 </h2>
                 <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -883,7 +844,7 @@ export default function App() {
               <div className="lg:col-span-6">
                 {!formSubmitted ? (
                   <form onSubmit={handleFormSubmit} className="bg-white text-slate-800 p-8 rounded-3xl space-y-6 shadow-xl border border-slate-100">
-                    <h3 className="font-serif text-xl font-bold text-teal-950">Запит на консультацію</h3>
+                    <h3 className="text-xl font-bold text-teal-950">Запит на консультацію</h3>
                     
                     {formError && (
                       <div className="p-4 rounded-xl bg-red-50 text-red-600 text-xs font-semibold border border-red-100 flex items-center gap-2">
@@ -948,7 +909,7 @@ export default function App() {
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="font-serif text-2xl font-bold text-teal-950">Заявку успішно відправлено!</h3>
+                      <h3 className="text-2xl font-bold text-teal-950">Заявку успішно відправлено!</h3>
                       <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
                         Дякуємо, <strong>{name}</strong>. Наш медичний координатор зв'яжеться з вами за номером <strong>{phone}</strong> найближчим часом.
                       </p>
@@ -985,7 +946,7 @@ export default function App() {
                 <Activity className="w-4 h-4" />
               </div>
               <div>
-                <span className="font-serif text-base font-bold text-white block leading-none">Мунджаро</span>
+                <span className="text-base font-bold text-white block leading-none">Мунджаро</span>
                 <span className="text-[9px] uppercase tracking-wider text-slate-500 block mt-1">Доказова медицина</span>
               </div>
             </div>
