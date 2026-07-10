@@ -20,8 +20,10 @@ import {
   Info,
   CheckCircle2,
   Lock,
-  Download,
-  ExternalLink
+  Heart,
+  Menu,
+  X,
+  Dumbbell
 } from "lucide-react";
 
 // Structure for FAQs
@@ -32,54 +34,57 @@ const FAQS = [
   },
   {
     q: "Як часто вводиться препарат?",
-    a: "Препарат вводиться лише один раз на тиждень у фіксований день. Це значно спрощує щоденне планування порівняно зі щоденними ін'єкціями."
+    a: "Раз на тиждень. Одна проста щотижнева ін'єкція значно спрощує планування порівняно зі щоденними засобами."
   },
   {
     q: "Які найчастіші побічні ефекти?",
-    a: "Найчастішими є легкі або помірні реакції з боку шлунково-кишкового тракту (нудота, діарея, інколи закреп або блювання). Зазвичай вони пов'язані з адаптацією організму та виникають під час перших тижнів або при зміні (збільшенні) дози препарату."
+    a: "Найчастіше це нудота, діярея, інколи закреп і блювання; зазвичай вони пов’язані з ШКТ і частіше з’являються під час зміни дози препарату, поступово минаючи в процесі адаптації."
   },
   {
     q: "Чи підходить, якщо є інші ліки?",
-    a: "Сумісність Мунджаро з іншими медикаментами має індивідуально оцінити ваш лікар. Це критично для забезпечення вашої безпеки та максимальної ефективності терапії."
+    a: "Це має оцінити лікар, бо сумісність залежить від конкретного лікування й поточного стану пацієнта."
   },
   {
-    q: "Чи потрібно дотримуватися дієти під час лікування?",
-    a: "Так. Препарат Мунджаро діє найбільш ефективно як частина комплексного підходу: разом із збалансованою дієтою та регулярною фізичною активністю."
+    q: "Чи потрібно дотримуватися дієти?",
+    a: "Так, препарат застосовується разом із збалансованою дієтою та помірною фізичною активністю для досягнення стійкого результату."
   }
 ];
 
-// Suitability Test Questions
+// Suitability Test Questions based on PDF
 const TEST_QUESTIONS = [
   {
     id: 1,
-    question: "Чи боретеся ви з надмірною вагою тривалий час (наприклад, попри дієти та вправи)?",
+    question: "Чи помічаєте ви за собою хаотичні думки про їжу або раптові зриви після дієт?",
     options: [
-      { text: "Так, вага роками стоїть на місці або швидко повертається", value: "high" },
-      { text: "Іноді стикаюся з труднощами та коливаннями маси тіла", value: "medium" },
-      { text: "Ні, легко контролюю та підтримую бажану вагу", value: "low" }
+      { text: "Так, постійно думаю про їжу та зриваюся", value: "high" },
+      { text: "Іноді важко контролювати апетит ввечері", value: "medium" },
+      { text: "Ні, спокійно та легко контролюю порції", value: "low" }
     ]
   },
   {
     id: 2,
-    question: "Чи помічали ви труднощі з контролем апетиту (хаотичний голод, постійний потяг до їжі)?",
+    question: "Чи поверталася до вас вага після попередніх спроб схуднення?",
     options: [
-      { text: "Так, часто відчуваю непереборний голод або емоційне переїдання", value: "high" },
-      { text: "Контролюю апетит, але це вимагає надзвичайних зусиль", value: "medium" },
-      { text: "Повністю і легко контролюю свої харчові звички", value: "low" }
+      { text: "Так, щоразу повертається ще більше кілограмів", value: "high" },
+      { text: "Вага коливається в межах 5-10 кг", value: "medium" },
+      { text: "Ні, стабільно утримує бажану форму", value: "low" }
     ]
   },
   {
     id: 3,
-    question: "Чи маєте ви супутні проблеми, пов'язані з вагою (коливання тиску, задишка, дискомфорт у суглобах)?",
+    question: "Які фізичні симптоми зайвої ваги ви відчуваєте найчастіше?",
     options: [
-      { text: "Так, відчуваю постійний вплив на самопочуття або маю хронічні стани", value: "high" },
-      { text: "Є невеликий дискомфорт або ризики, що поступово зростають", value: "medium" },
-      { text: "Ні, почуваюся повністю бадьоро та здорово", value: "low" }
+      { text: "Втому від мінімального навантаження, біль у суглобах або задишку", value: "high" },
+      { text: "Помірну втому в кінці активного робочого дня", value: "medium" },
+      { text: "Почуваюся бадьоро, фізичних обмежень немає", value: "low" }
     ]
   }
 ];
 
 export default function App() {
+  // Mobile Menu state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -91,6 +96,7 @@ export default function App() {
   // Consultation form state
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [wantsConsultation, setWantsConsultation] = useState(true);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formError, setFormError] = useState("");
 
@@ -117,8 +123,9 @@ export default function App() {
       setFormError("Будь ласка, вкажіть ваше ім'я");
       return;
     }
-    if (!phone.trim() || phone.replace(/\D/g, "").length < 9) {
-      setFormError("Введіть коректний номер телефону");
+    const cleanPhone = phone.replace(/\D/g, "");
+    if (!phone.trim() || cleanPhone.length < 9) {
+      setFormError("Введіть коректний номер телефону (мінімум 9 цифр)");
       return;
     }
     setFormError("");
@@ -131,721 +138,1027 @@ export default function App() {
 
     if (highCount >= 2) {
       return {
-        title: "Високий рівень сумісності",
-        desc: "Ваш профіль свідчить про те, що класичні методи регулювання ваги можуть бути недостатніми. Подвійний механізм Мунджаро (GIP + GLP-1) може стати вагомим елементом комплексного лікування під медичним наглядом.",
-        badgeColor: "bg-teal-50 text-teal-700 border-teal-200"
+        title: "Висока відповідність терапії",
+        desc: "Ваші симптоми (боротьба з апетитом, повернення ваги, швидка втомлюваність) вказують на хронічний характер проблеми, яка складно піддається лише силовим зусиллям. Інноваційний механізм Мунджаро (GIP + GLP-1) може стати вирішальним медичним інструментом для безпечного утримання дефіциту калорій та стабілізації ваги під наглядом лікаря.",
+        badgeColor: "bg-violet-100 text-violet-950 border-violet-200"
       };
     } else if (lowCount >= 2) {
       return {
-        title: "Профілактичний підхід",
-        desc: "Ваші показники у межах норми. Медикаментозна підтримка наразі може бути не пріоритетною, проте детальна консультація з лікарем допоможе розібратися у тонкощах метаболізму та отримати цінні поради щодо харчування.",
-        badgeColor: "bg-gray-100 text-gray-700 border-gray-300"
+        title: "Профілактична відповідність",
+        desc: "Ваші харчові звички та вага відносно стабільні. Застосування серйозної медикаментозної терапії може не бути першочерговою необхідністю. Проте, індивідуальна консультація з кваліфікованим лікарем допоможе краще зрозуміти метаболічні процеси та налаштувати харчування.",
+        badgeColor: "bg-teal-50 text-teal-950 border-teal-200"
       };
     } else {
       return {
         title: "Помірна відповідність",
-        desc: "Мунджаро може розглядатися як варіант підтримки у комплексі з коригуванням способу життя. Радимо обговорити індивідуальні метаболічні фактори з вашим лікарем.",
-        badgeColor: "bg-violet-50 text-violet-700 border-violet-200"
+        desc: "Ви стикаєтеся з періодичними труднощами під час схуднення. Мунджаро може розглядатися як дієва підтримка на шляху до відновлення форми. Рекомендуємо обговорити медичний супровід та сумісність з лікарем, щоб вибудувати надійний план.",
+        badgeColor: "bg-slate-100 text-slate-950 border-slate-200"
       };
     }
   };
 
-  return (
-    <div className="min-h-screen bg-medical-gradient text-slate-800 antialiased font-sans">
-      {/* Sticky Premium Header */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-slate-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white shadow-md shadow-teal-100 relative">
-              <Activity className="w-5 h-5 animate-pulse" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-violet-600 rounded-full border-2 border-white"></span>
-            </div>
-            <div>
-              <span className="font-serif text-xl font-bold tracking-tight text-teal-950 block">Мунджаро</span>
-              <span className="text-[10px] uppercase font-semibold tracking-wider text-teal-600 block leading-none">Tirzepatide Info</span>
-            </div>
-          </div>
-          
-          <nav className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-sm font-medium text-slate-600 hover:text-teal-700 transition-colors">Про препарат</a>
-            <a href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-teal-700 transition-colors">Як працює</a>
-            <a href="#benefits" className="text-sm font-medium text-slate-600 hover:text-teal-700 transition-colors">Переваги</a>
-            <a href="#comparison" className="text-sm font-medium text-slate-600 hover:text-teal-700 transition-colors">Порівняння</a>
-            <a href="#faq" className="text-sm font-medium text-slate-600 hover:text-teal-700 transition-colors">Часті питання</a>
-          </nav>
+  const scrollToSection = (id: string) => {
+    setMobileMenuOpen(false);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
-          <div className="flex items-center gap-4">
-            <a 
-              href="#consultation" 
-              className="hidden sm:inline-flex items-center justify-center px-6 h-11 text-sm font-semibold rounded-full bg-teal-600 hover:bg-teal-700 text-white transition-all shadow-md shadow-teal-100"
+  return (
+    <div className="min-h-screen bg-white text-slate-800 font-sans antialiased selection:bg-teal-200 selection:text-teal-950">
+      
+      {/* Navigation Bar */}
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100/80 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            
+            {/* Logo */}
+            <div 
+              onClick={() => scrollToSection("hero")} 
+              className="flex items-center gap-3 cursor-pointer group"
+              id="nav-logo"
             >
-              Консультація лікаря
-            </a>
+              <div className="w-10 h-10 rounded-full bg-violet-950 flex items-center justify-center text-teal-400 group-hover:scale-105 transition-transform duration-300">
+                <Activity className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-lg font-bold text-violet-950 block tracking-tight">Мунджаро</span>
+                <span className="text-[9px] uppercase tracking-wider text-slate-400 block -mt-0.5">Доказова Медицина</span>
+              </div>
+            </div>
+
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+              <button onClick={() => scrollToSection("diagnostics")} className="hover:text-violet-950 transition-colors cursor-pointer">Впізнаєте себе?</button>
+              <button onClick={() => scrollToSection("how-it-works")} className="hover:text-violet-950 transition-colors cursor-pointer">Як працює</button>
+              <button onClick={() => scrollToSection("results")} className="hover:text-violet-950 transition-colors cursor-pointer">Результати</button>
+              <button onClick={() => scrollToSection("comparison")} className="hover:text-violet-950 transition-colors cursor-pointer">Чим відрізняється</button>
+              <button onClick={() => scrollToSection("faq")} className="hover:text-violet-950 transition-colors cursor-pointer">Питання</button>
+              
+              <button 
+                onClick={() => scrollToSection("consultation")}
+                className="h-11 px-6 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all text-xs tracking-wide uppercase flex items-center gap-1.5 shadow-sm shadow-teal-100"
+              >
+                <span>Консультація</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Mobile menu trigger */}
+            <div className="md:hidden">
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-slate-600 hover:text-violet-950 transition-colors"
+                id="mobile-menu-btn"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+
           </div>
         </div>
-      </header>
 
-      {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-teal-100/30 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute top-1/3 right-10 w-[300px] h-[300px] bg-violet-100/30 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Mobile Dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-slate-100 px-4 pt-2 pb-6 space-y-3 shadow-lg absolute w-full left-0 animate-fade-in">
+            <button 
+              onClick={() => scrollToSection("diagnostics")} 
+              className="block w-full text-left py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 font-medium"
+            >
+              Впізнаєте себе?
+            </button>
+            <button 
+              onClick={() => scrollToSection("how-it-works")} 
+              className="block w-full text-left py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 font-medium"
+            >
+              Як працює
+            </button>
+            <button 
+              onClick={() => scrollToSection("results")} 
+              className="block w-full text-left py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 font-medium"
+            >
+              Результати
+            </button>
+            <button 
+              onClick={() => scrollToSection("comparison")} 
+              className="block w-full text-left py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 font-medium"
+            >
+              Чим відрізняється
+            </button>
+            <button 
+              onClick={() => scrollToSection("faq")} 
+              className="block w-full text-left py-2.5 px-4 rounded-xl text-slate-700 hover:bg-slate-50 font-medium"
+            >
+              Питання
+            </button>
+            
+            <div className="pt-2">
+              <button 
+                onClick={() => scrollToSection("consultation")}
+                className="w-full h-12 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all text-sm flex items-center justify-center gap-2"
+              >
+                <span>Отримати консультацію</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section - Split Screen layout */}
+      <section id="hero" className="relative pt-20 overflow-hidden bg-medical-gradient lg:min-h-screen flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-24">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Hero text */}
-            <div className="lg:col-span-7 space-y-8">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-50 border border-teal-100 text-teal-700 text-xs font-semibold tracking-wide">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Новітні терапевтичні стандарти у світі</span>
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-6 space-y-8 text-left z-10">
+              
+              <div className="inline-flex items-center gap-2 bg-violet-50 text-violet-950 px-3 py-1.5 rounded-full border border-violet-100 text-xs font-semibold tracking-wide">
+                <Sparkles className="w-4 h-4 text-teal-500 shrink-0" />
+                <span>Нова ера медичного контролю ваги</span>
               </div>
-              
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold text-teal-950 tracking-tight leading-tight">
-                Контроль ваги, коли одних порад <span className="text-teal-600 relative">уже замало<span className="absolute bottom-1 left-0 w-full h-2 bg-teal-100 -z-10 rounded-sm"></span></span>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-violet-950 tracking-tight leading-[1.1]" id="hero-title">
+                Мінус 10–25 кг без виснажливих дієт та постійного відчуття голоду
               </h1>
-              
-              <p className="text-lg text-slate-600 leading-relaxed max-w-2xl">
-                Коли дієти та фізична активність перестають давати стабільний результат, сучасна медицина пропонує медикаментозну підтримку. 
-                <strong className="text-slate-800"> Мунджаро (Tirzepatide)</strong> — це перший у своєму роді подвійний регулятор апетиту, який діє синергетично для тривалого контролю ваги.
+
+              <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
+                Контроль ваги під наглядом лікаря з використанням сучасних міжнародних протоколів лікування зайвої ваги. Почніть шлях до нового самопочуття без щохвилинної боротьби з апетитом.
               </p>
 
-              {/* Quick bullet values */}
-              <div className="grid sm:grid-cols-3 gap-4 py-2">
-                <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                  <div className="font-serif text-2xl font-bold text-teal-950">1 раз / тиждень</div>
-                  <div className="text-xs text-slate-500 mt-1">Комфортний та зручний режим прийому без щоденної рутини</div>
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <button 
+                  onClick={() => scrollToSection("test-section")}
+                  className="h-14 px-8 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-2xl transition-all flex items-center justify-center gap-2.5 text-sm uppercase tracking-wider shadow-lg shadow-teal-200/50"
+                >
+                  <span>Дізнатися, чи підходить вам</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button 
+                  onClick={() => scrollToSection("consultation")}
+                  className="h-14 px-8 bg-white hover:bg-slate-50 text-violet-950 font-bold rounded-2xl transition-all border border-slate-200 flex items-center justify-center gap-2 text-sm shadow-xs"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Записатися до лікаря</span>
+                </button>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-100 max-w-lg">
+                <div>
+                  <span className="block text-2xl font-bold text-violet-950">EMA</span>
+                  <span className="block text-[11px] text-slate-500 mt-1">Сертифіковані стандарти терапії</span>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                  <div className="font-serif text-2xl font-bold text-teal-950">до 15%+</div>
-                  <div className="text-xs text-slate-500 mt-1">Середнє зниження ваги тіла у клінічних дослідженнях за 72 тижні</div>
+                <div>
+                  <span className="block text-2xl font-bold text-violet-950">GIP/GLP-1</span>
+                  <span className="block text-[11px] text-slate-500 mt-1">Подвійна синергія гормонів</span>
                 </div>
-                <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm">
-                  <div className="font-serif text-2xl font-bold text-teal-950">GIP + GLP-1</div>
-                  <div className="text-xs text-slate-500 mt-1">Подвійна синергетична дія на рецептори насичення</div>
+                <div>
+                  <span className="block text-2xl font-bold text-violet-950">1 раз</span>
+                  <span className="block text-[11px] text-slate-500 mt-1">на тиждень замість щоденної рутини</span>
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <a 
-                  href="#consultation" 
-                  className="px-8 h-14 inline-flex items-center justify-center text-base font-semibold rounded-full bg-teal-600 hover:bg-teal-700 text-white transition-all shadow-lg shadow-teal-100 hover:translate-y-[-1px]"
-                >
-                  Записатися на консультацію
-                </a>
-                <a 
-                  href="#test-suitability" 
-                  className="px-6 h-14 inline-flex items-center justify-center text-sm font-semibold rounded-full border border-slate-200 hover:border-teal-300 text-slate-700 hover:text-teal-800 bg-white transition-all"
-                >
-                  Пройти тест на сумісність
-                </a>
-              </div>
             </div>
 
-            {/* Hero graphics */}
-            <div className="lg:col-span-5 relative flex justify-center">
-              <div className="relative w-full max-w-sm sm:max-w-md bg-white rounded-3xl border border-slate-100 p-6 flex flex-col justify-between shadow-xl overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-violet-100 rounded-full blur-2xl pointer-events-none"></div>
+            {/* Right Image Column - Beautiful Full Split Visual */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-square w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img 
+                  src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80" 
+                  alt="Healthy wellness life weight loss confidence" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
                 
-                {/* Stunning Modern Clinical/Practitioner Photo */}
-                <div className="relative h-48 sm:h-52 rounded-2xl overflow-hidden mb-6 shadow-sm">
-                  <img 
-                    src="https://images.unsplash.com/photo-1579684389782-64d84b5e901a?auto=format&fit=crop&w=800&q=80" 
-                    alt="Сучасна медична клініка"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-teal-400 rounded-full animate-ping"></span>
-                    <span className="text-[10px] font-bold text-teal-100 uppercase tracking-wider bg-teal-950/80 px-2 py-0.5 rounded backdrop-blur-xs border border-teal-500/20">
-                      Медичний супровід
-                    </span>
-                  </div>
-                </div>
-
-                {/* Simulated Medical App Frame */}
-                <div className="flex justify-between items-center pb-3 border-b border-slate-100">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold tracking-wider uppercase text-teal-700">Клінічний статус</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-slate-400">Схвалено EMA</span>
-                </div>
-
-                {/* KwikPen Graphic & Dose Dial */}
-                <div className="my-4 flex flex-col items-center">
-                  <div className="w-full bg-slate-50 rounded-2xl p-4 border border-slate-100 space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs text-slate-500">Дозування</span>
-                      <span className="text-xs font-bold text-teal-950 bg-teal-50 px-2 py-0.5 rounded border border-slate-100">2.5 мг / 5 мг / 10 мг</span>
+                {/* Visual Accent Layer */}
+                <div className="absolute inset-0 bg-gradient-to-t from-violet-950/40 via-transparent to-transparent"></div>
+                
+                {/* Floating Success Card */}
+                <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-slate-100/50 max-w-md hidden sm:block animate-fade-in">
+                  <div className="flex gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center text-violet-950 shrink-0">
+                      <ShieldCheck className="w-6 h-6 text-teal-500" />
                     </div>
-                    {/* Syringe pen design layout */}
-                    <div className="h-10 bg-gradient-to-r from-slate-200 via-teal-50 to-slate-200 rounded-lg flex items-center px-4 justify-between border border-slate-300 relative overflow-hidden shadow-xs">
-                      <div className="absolute left-0 top-0 bottom-0 w-1/3 bg-teal-600/10 border-r border-teal-300/40"></div>
-                      <span className="text-[9px] font-mono font-bold text-teal-900 z-10">Mounjaro® KwikPen®</span>
-                      <div className="w-6 h-6 rounded-full bg-violet-600 flex items-center justify-center text-white text-[10px] font-mono font-bold z-10">
-                        2.5
-                      </div>
-                    </div>
-                    <div className="text-[11px] text-center text-slate-500">
-                      Зручна шприц-ручка із захищеною голкою для підшкірного введення 1 раз на тиждень
+                    <div>
+                      <h4 className="font-bold text-violet-950 text-sm">Турбота та доказовість</h4>
+                      <p className="text-xs text-slate-500 mt-1">Оригінальна методика контролю метаболізму без стресу для нервової системи та жорстких голодувань.</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Success Card simulation */}
-                <div className="bg-teal-950 text-white rounded-2xl p-4 space-y-2 shadow-lg relative">
-                  <div className="absolute top-3 right-3">
-                    <ShieldCheck className="w-5 h-5 text-teal-400" />
-                  </div>
-                  <div className="text-[10px] uppercase tracking-wider text-teal-300 font-bold">Очікуваний результат</div>
-                  <p className="text-xs sm:text-sm font-medium leading-snug">
-                    «М'яке вивільнення від постійних думок про їжу, контроль ваги без стресу для організму.»
+              </div>
+
+              {/* Decorative Background Glows */}
+              <div className="absolute -top-12 -right-12 w-64 h-64 bg-teal-200/30 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-violet-200/20 rounded-full blur-3xl -z-10"></div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Diagnostics Section: "Впізнаєте себе?" */}
+      <section id="diagnostics" className="py-20 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Column: Strong emotional image */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-square sm:aspect-[4/3] lg:aspect-square bg-white border border-slate-100">
+                <img 
+                  src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1000&q=80" 
+                  alt="Reflecting on weight loss struggle looking in mirror" 
+                  className="w-full h-full object-cover filter grayscale-20 contrast-110"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent"></div>
+                
+                {/* Image overlay caption */}
+                <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-teal-300">Психологічний аспект</span>
+                  <p className="text-base font-medium leading-snug">
+                    Постійний фокус на цифрах та почуття провини виснажують ваш ресурс.
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
-            <div className="lg:col-span-6 space-y-8">
-              <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Подвійна синергія гормонів</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
-                Як працює Мунджаро: Наука на варті вашого тіла
-              </h2>
               
-              <div className="space-y-6 text-slate-600 text-base">
-                <p>
-                  На відміну від засобів попереднього покоління, які впливають лише на один гормон, Мунджаро містить <strong className="text-slate-900">тирзепатид</strong>. Це перший подвійний агоніст рецепторів:
-                </p>
-                
-                <div className="space-y-4">
-                  <div className="flex gap-4 p-4 rounded-2xl bg-teal-50 border border-teal-100">
-                    <div className="w-10 h-10 rounded-xl bg-teal-600 text-white flex items-center justify-center font-bold font-mono text-xs shrink-0">
-                      GIP
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm">Глюкозозалежний інсулінотропний поліпептид</h4>
-                      <p className="text-xs text-slate-500 mt-1">Оптимізує енергетичний обмін, допомагає зменшити накопичення жиру та стабілізує вивільнення енергії.</p>
-                    </div>
-                  </div>
-
-                  <div className="flex gap-4 p-4 rounded-2xl bg-violet-50 border border-violet-100">
-                    <div className="w-10 h-10 rounded-xl bg-violet-600 text-white flex items-center justify-center font-bold font-mono text-xs shrink-0">
-                      GLP-1
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-sm">Глюкагоноподібний пептид-1</h4>
-                      <p className="text-xs text-slate-500 mt-1">Регулює центр голоду у головному мозку, подовжує відчуття насичення та уповільнює спорожнення шлунка.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-sm">
-                  Разом вони створюють потужний синергетичний ефект, який значно полегшує дотримання здорового способу життя.
-                </p>
-              </div>
+              {/* Background accent ring */}
+              <div className="absolute -bottom-6 -right-6 w-36 h-36 bg-violet-100/60 rounded-full -z-10"></div>
             </div>
 
-            {/* Visual Process Flow */}
-            <div className="lg:col-span-6">
-              <div className="p-8 rounded-3xl bg-slate-50 border border-slate-100 space-y-6">
-                
-                {/* Elegant medicine illustration or syringe close-up */}
-                <div className="relative h-48 rounded-2xl overflow-hidden shadow-sm">
-                  <img 
-                    src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" 
-                    alt="Технологія KwikPen для точного дозування"
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-4 left-4 right-4 text-white">
-                    <div className="text-[10px] font-bold text-teal-400 uppercase tracking-widest mb-1">Інноваційний механізм</div>
-                    <div className="text-sm font-semibold">Оригінальна технологія KwikPen® для точного та зручного введення</div>
-                  </div>
-                </div>
-
-                <h3 className="text-xl font-bold text-teal-950 text-center">Ланцюжок формування здорових звичок</h3>
-                
-                <div className="space-y-6 relative">
-                  {/* Decorative timeline line */}
-                  <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-dashed bg-slate-200"></div>
-
-                  {/* Step 1 */}
-                  <div className="flex gap-6 items-start relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold shrink-0 shadow-lg shadow-teal-100">
-                      01
-                    </div>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs grow">
-                      <h4 className="font-bold text-teal-950 text-sm">Менше хаотичного апетиту</h4>
-                      <p className="text-xs text-slate-500 mt-1">Зникає неконтрольована потреба у постійних шкідливих перекусах та солодкій їжі.</p>
-                    </div>
-                  </div>
-
-                  {/* Step 2 */}
-                  <div className="flex gap-6 items-start relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-violet-600 text-white flex items-center justify-center font-bold shrink-0 shadow-lg shadow-violet-100">
-                      02
-                    </div>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs grow">
-                      <h4 className="font-bold text-teal-950 text-sm">Простіше дотримуватись плану</h4>
-                      <p className="text-xs text-slate-500 mt-1">Ви легко переходите до здорового дефіциту калорій без відчуття виснаження чи стресу.</p>
-                    </div>
-                  </div>
-
-                  {/* Step 3 */}
-                  <div className="flex gap-6 items-start relative z-10">
-                    <div className="w-12 h-12 rounded-full bg-teal-900 text-white flex items-center justify-center font-bold shrink-0 shadow-lg shadow-teal-900/20">
-                      03
-                    </div>
-                    <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs grow">
-                      <h4 className="font-bold text-teal-950 text-sm">Стабільний контроль ваги</h4>
-                      <p className="text-xs text-slate-500 mt-1">Організм формирує корисні звички, забезпечуючи надійне утримання здорової маси тіла.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="text-center">
-                  <span className="inline-block px-4 py-2 rounded-xl bg-teal-50 text-teal-800 text-xs font-semibold border border-teal-100">
-                    Простими словами: шлях до здоров'я стає легким та передбачуваним
-                  </span>
-                </div>
+            {/* Right Column: Structured list */}
+            <div className="lg:col-span-6 space-y-8" id="recognize-self">
+              <div className="space-y-4">
+                <span className="text-xs uppercase font-bold tracking-wider text-violet-600 block">Пройдіть самоперевірку</span>
+                <h2 className="text-3xl sm:text-4xl font-extrabold text-violet-950 tracking-tight">
+                  Впізнаєте себе?
+                </h2>
+                <p className="text-slate-600 text-base leading-relaxed">
+                  Подивіться чесно на свій щоденний стан. Чи знайомі вам ці ситуації?
+                </p>
               </div>
+
+              {/* Checklist Grid */}
+              <div className="grid sm:grid-cols-2 gap-4">
+                
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">1</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Постійні думки</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Постійно думаю про їжу» — мозок шукає швидкого задоволення.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Замкнене коло зривів</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Зриваюся після чергової дієти» через виснажливе обмеження.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Ефект гойдалок</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Вага повертається після схуднення» з надлишком.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">4</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Втрата тонусу</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Втомлююся навіть від невеликого навантаження» впродовж дня.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">5</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Невпевненість</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Соромлюся свого тіла» при виборі одягу чи під час спілкування.</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs flex gap-3.5 items-start">
+                  <div className="w-6 h-6 rounded-full bg-violet-50 text-violet-950 flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="text-xs font-bold font-mono">6</span>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Зниження здоров'я</h4>
+                    <p className="text-xs text-slate-500 mt-1">«Аналізи стають гіршими щороку» — холестерин, тиск чи цукор.</p>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Core Message Statement */}
+              <div className="bg-violet-950 text-white p-6 rounded-2xl space-y-3 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-5 h-5 text-teal-400 shrink-0" />
+                  <span className="text-xs uppercase font-bold tracking-wider text-teal-300">Важливе усвідомлення</span>
+                </div>
+                <h4 className="font-bold text-lg">Якщо ви хоча б тричі впізнали себе — ви не самотні</h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  За сучасними медичними даними, ожиріння — це не слабкість характеру, не відсутність волі, а складне хронічне захворювання. Воно потребує професійного лікування так само, як гіпертонія чи цукровий діабет.
+                </p>
+              </div>
+
+              <div className="flex justify-start">
+                <button 
+                  onClick={() => scrollToSection("test-section")}
+                  className="h-12 px-6 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all text-xs tracking-wider uppercase flex items-center gap-2"
+                >
+                  <span>Пройти тест на сумісність</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* Benefits Section (Bento Grid) */}
-      <section id="benefits" className="py-20 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Клінічно доведено</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
-              Що Мунджаро дає людині на практиці
+      {/* Interactive Suitability Test Widget */}
+      <section id="test-section" className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-4 mb-12">
+            <span className="text-xs uppercase font-bold tracking-wider text-teal-600 bg-teal-50 px-3 py-1 rounded-full border border-teal-100 inline-block">
+              Інтерактивний асистент
+            </span>
+            <h2 className="text-3xl font-extrabold text-violet-950 tracking-tight">
+              Експрес-тест: Чи підходить вам терапія Мунджаро?
             </h2>
-            <p className="text-slate-600 text-base">
-              Результати досліджень, опубліковані у провідних медичних виданнях, доводять високу клінічну результативність тирзепатиду.
+            <p className="text-slate-600 text-sm max-w-lg mx-auto">
+              Дайте відповідь на 3 простих питання, щоб визначити ступінь сумісності терапії з вашим поточним життєвим ритмом та симптомами.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-12 gap-6">
+          <div className="bg-slate-50 border border-slate-100 rounded-3xl p-6 sm:p-10 shadow-sm relative overflow-hidden">
             
-            {/* Benefit 1 */}
-            <div className="md:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-600">
-                  <Clock className="w-6 h-6" />
-                </div>
-                <div className="text-xs font-bold text-teal-600 uppercase tracking-wide">Перевага 1</div>
-                <h3 className="text-2xl font-bold text-teal-950">Раз на тиждень — повна свобода</h3>
-                <p className="text-slate-500 text-sm leading-relaxed max-w-lg">
-                  Забудьте про складні щоденні схеми прийому ліків чи нагадування. Одна проста ін'єкція на тиждень мінімізує щоденну рутину та допомагає легко утримувати режим терапії.
-                </p>
-              </div>
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-2 text-xs font-bold text-teal-800">
-                <span>Простота у кожній деталі</span>
-              </div>
-            </div>
-
-            {/* Benefit 2 */}
-            <div className="md:col-span-5 bg-teal-950 text-white p-8 sm:p-10 rounded-3xl flex flex-col justify-between shadow-xs hover:shadow-md transition-all relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-teal-900 rounded-full blur-2xl"></div>
-              <div className="space-y-4 relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-teal-900 flex items-center justify-center text-teal-400">
-                  <Scale className="w-6 h-6" />
-                </div>
-                <div className="text-xs font-bold text-teal-400 uppercase tracking-wide">Перевага 2</div>
-                <h3 className="text-2xl font-bold">Зниження маси тіла від 15%</h3>
-                <p className="text-teal-200/80 text-sm leading-relaxed">
-                  У клінічному дослідженні за участю понад 2500 дорослих пацієнтів середнє зниження маси тіла становило щонайменше 15% за 72 тижні активного лікування.
-                </p>
-              </div>
-              <div className="mt-8 font-mono text-4xl font-extrabold text-teal-400">
-                -15%...-21%
-              </div>
-            </div>
-
-            {/* Benefit 3 */}
-            <div className="md:col-span-5 bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-violet-50 flex items-center justify-center text-violet-600">
-                  <Target className="w-6 h-6" />
-                </div>
-                <div className="text-xs font-bold text-violet-600 uppercase tracking-wide">Перевага 3</div>
-                <h3 className="text-2xl font-bold text-teal-950">Результат у 85% пацієнтів</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Понад 85% учасників клінічних випробувань досягли помітного та стійкого зниження маси тіла щонайменше на 5% за період терапії.
-                </p>
-              </div>
-              <div className="mt-8 text-3xl font-extrabold text-violet-950">
-                &gt; 85% успіху
-              </div>
-            </div>
-
-            {/* Benefit 4 */}
-            <div className="md:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-100 flex flex-col justify-between shadow-xs hover:shadow-md transition-all">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-teal-50 flex items-center justify-center text-teal-600">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <div className="text-xs font-bold text-teal-600 uppercase tracking-wide">Перевага 4</div>
-                <h3 className="text-2xl font-bold text-teal-950">Керований профіль безпеки</h3>
-                <p className="text-slate-500 text-sm leading-relaxed">
-                  Найчастіші побічні реакції з боку шлунково-кишкового тракту (ШКТ) зазвичай носять легкий або помірний характер. Вони найчастіше виникають на початковому етапі або під час зміни дози й поступово минають.
-                </p>
-              </div>
-              <div className="mt-8 pt-6 border-t border-slate-100 flex items-center gap-2 text-xs text-slate-500">
-                <Info className="w-4 h-4 text-teal-600" />
-                <span>Регулюється під контролем лікаря</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Compatibility Test Widget */}
-      <section id="test-suitability" className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="bg-gradient-to-br from-teal-50/60 via-white to-violet-50/40 rounded-3xl border border-slate-100 p-8 md:p-12 shadow-xl space-y-8 relative overflow-hidden">
-            <div className="text-center space-y-3">
-              <span className="text-xs uppercase font-bold tracking-wider text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-100">
-                Експрес-тест
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-teal-950">
-                Чи підходить вам терапія Мунджаро?
-              </h2>
-              <p className="text-xs text-slate-500 max-w-lg mx-auto">
-                Дайте відповіді на 3 прості запитання, щоб зрозуміти, чи відповідає ваш випадок медичним критеріям застосування препарату.
-              </p>
-            </div>
+            {/* Background geometric element */}
+            <div className="absolute right-0 top-0 w-32 h-32 bg-violet-100/40 rounded-full blur-2xl"></div>
 
             {!testResultVisible ? (
-              <div className="space-y-6">
-                {/* Progress bar */}
-                <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+              <div className="space-y-6 relative z-10">
+                {/* Stepper Progress Bar */}
+                <div className="flex justify-between items-center text-xs font-semibold text-slate-400">
+                  <span>Крок {testStep + 1} з {TEST_QUESTIONS.length}</span>
+                  <span>{Math.round(((testStep + 1) / TEST_QUESTIONS.length) * 100)}% виконано</span>
+                </div>
+                
+                {/* Outer bar */}
+                <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                   <div 
-                    className="bg-teal-600 h-1.5 transition-all duration-300" 
+                    className="h-full bg-violet-950 rounded-full transition-all duration-300" 
                     style={{ width: `${((testStep + 1) / TEST_QUESTIONS.length) * 100}%` }}
                   ></div>
                 </div>
 
-                <div className="flex justify-between items-center text-xs text-slate-400 font-medium">
-                  <span>Запитання {testStep + 1} з {TEST_QUESTIONS.length}</span>
-                  <span>{Math.round(((testStep + 1) / TEST_QUESTIONS.length) * 100)}% завершено</span>
-                </div>
-
+                {/* Question Text */}
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-teal-950 leading-snug">
+                  <h3 className="text-lg sm:text-xl font-bold text-violet-950 leading-snug">
                     {TEST_QUESTIONS[testStep].question}
                   </h3>
                   
-                  <div className="grid gap-3">
+                  {/* Options List */}
+                  <div className="space-y-3 pt-2">
                     {TEST_QUESTIONS[testStep].options.map((option, idx) => (
                       <button
                         key={idx}
                         onClick={() => handleTestAnswer(option.value)}
-                        className="w-full text-left p-5 rounded-2xl border border-slate-200 hover:border-teal-500 hover:bg-teal-50/20 active:bg-teal-50/40 transition-all text-sm font-medium text-slate-700 hover:text-teal-950 flex justify-between items-center group"
+                        className="w-full text-left p-5 rounded-2xl bg-white border border-slate-200 hover:border-violet-300 hover:bg-violet-50/20 active:bg-violet-50 transition-all flex justify-between items-center group cursor-pointer"
                       >
-                        <span>{option.text}</span>
-                        <span className="w-5 h-5 rounded-full border border-slate-300 group-hover:border-teal-500 flex items-center justify-center text-transparent group-hover:text-teal-600 text-xs font-bold shrink-0">
-                          ✓
+                        <span className="text-slate-700 text-sm sm:text-base font-medium group-hover:text-violet-950 transition-colors">
+                          {option.text}
                         </span>
+                        <div className="w-6 h-6 rounded-full border border-slate-300 flex items-center justify-center shrink-0 group-hover:border-violet-600 group-hover:bg-violet-600 text-white transition-all">
+                          <Check className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        </div>
                       </button>
                     ))}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="space-y-6 text-center animate-fade-in">
-                <div className="w-16 h-16 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto mb-4">
+              <div className="space-y-8 relative z-10 text-center py-4 animate-fade-in">
+                
+                <div className="w-16 h-16 rounded-full bg-teal-500/10 text-teal-600 flex items-center justify-center mx-auto border border-teal-200 shadow-xs">
                   <ClipboardCheck className="w-8 h-8" />
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className={`inline-block px-4 py-1.5 rounded-full border text-xs font-bold uppercase tracking-wider ${getRecommendation().badgeColor}`}>
                     {getRecommendation().title}
                   </div>
-                  <p className="text-slate-600 text-sm max-w-xl mx-auto leading-relaxed pt-2">
+                  <h3 className="text-2xl font-extrabold text-violet-950">Аналіз вашого профілю завершено</h3>
+                  <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
                     {getRecommendation().desc}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-2xl p-5 text-xs text-slate-500 border border-slate-100 max-w-xl mx-auto">
-                  <strong>Важливо:</strong> Результати цього тесту носять виключно інформаційний характер та не замінюють медичний діагноз. Залиште заявку нижче, щоб обговорити ці результати з досвідченим лікарем.
+                <div className="bg-white p-6 rounded-2xl border border-slate-200 max-w-xl mx-auto text-left space-y-3 shadow-xs">
+                  <h4 className="font-bold text-violet-950 text-xs uppercase tracking-wider">Наступний рекомендований крок:</h4>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Препарат відпускається строго за рецептом. Щоб підтвердити доцільність лікування, виключити протипоказання та отримати індивідуальну схему дозування, залиште запит на консультацію з нашим фахівцем.
+                  </p>
                 </div>
 
-                <div className="flex justify-center gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                  <button
+                    onClick={() => scrollToSection("consultation")}
+                    className="h-12 px-8 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-xl transition-all text-xs tracking-wider uppercase flex items-center justify-center gap-2"
+                  >
+                    <span>Записатися на консультацію</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
                   <button
                     onClick={resetTest}
-                    className="px-6 h-12 text-xs font-semibold rounded-full border border-slate-200 hover:border-teal-300 text-slate-700 bg-white"
+                    className="h-12 px-6 bg-white hover:bg-slate-100 text-slate-600 font-semibold rounded-xl transition-all border border-slate-200 text-xs"
                   >
-                    Пройти заново
+                    Пройти тест спочатку
                   </button>
-                  <a
-                    href="#consultation"
-                    className="px-6 h-12 inline-flex items-center justify-center text-xs font-semibold rounded-full bg-teal-600 hover:bg-teal-700 text-white shadow-xs"
-                  >
-                    Обговорити з лікарем
-                  </a>
                 </div>
+
               </div>
             )}
+
           </div>
         </div>
       </section>
 
-      {/* Target Audience Section */}
-      <section className="py-20 bg-slate-50 border-t border-slate-100">
+      {/* How Medication works Section */}
+      <section id="how-it-works" className="py-20 bg-slate-50 border-y border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <span className="text-xs uppercase font-bold tracking-wider text-violet-600 block">Наукове обґрунтування</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-violet-950 tracking-tight">
+              Як працює сучасна медикаментозна терапія контролю ваги
+            </h2>
+            <p className="text-slate-600 text-base">
+              Організм людини регулює масу тіла за допомогою складних гормональних ланцюжків. Нове покоління препаратів допомагає вирівняти фізіологічні сигнали ситості та голоду.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
             
-            <div className="space-y-8">
-              <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Кому може бути корисно</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
-                Кому дійсно підходить Мунджаро?
-              </h2>
-              <p className="text-slate-600 text-base leading-relaxed">
-                Препарат розроблений та досліджений перш за все для людей, які потребують надійного клінічного інструменту у боротьбі за здоров'я.
+            {/* Left Box: Mechanism list */}
+            <div className="lg:col-span-6 space-y-6">
+              <h3 className="text-xl sm:text-2xl font-bold text-violet-950">
+                Лікування за допомогою сучасних пептидів допомагає:
+              </h3>
+              
+              <div className="space-y-4">
+                
+                <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-950 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Швидше насичуватися</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Відчуття ситості приходить значно швидше, запобігаючи переїданню.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-950 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Довше не відчувати голод</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Препарат уповільнює спорожнення шлунка, забезпечуючи тривале почуття комфорту.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-950 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Зменшити потяг до їжі</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Мириться з хаотичним голодом більше не потрібно — ви повністю контролюєте думки про їжу.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-950 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Контролювати розмір порцій</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Звикання до здорових обсягів їжі формується природно та без стресу.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-xs">
+                  <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-950 flex items-center justify-center font-bold shrink-0 mt-0.5">
+                    <Check className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-violet-950 text-sm">Поступово знижувати вагу</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">Вага знижується стабільно та без шкоди для загального самопочуття.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Right Box: What is Mounjaro scientific details */}
+            <div className="lg:col-span-6 bg-white p-8 rounded-3xl border border-slate-100 shadow-md space-y-6">
+              
+              <div className="inline-block px-3 py-1 rounded-full bg-violet-50 text-violet-950 border border-violet-100 text-xs font-semibold">
+                Що таке «Мунджаро»?
+              </div>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                <strong>Мунджаро</strong> — це препарат у вигляді розчину для ін'єкцій у зручній шприц-ручці. Він діє через подвійний біологічний механізм <strong>GLP-1</strong> і <strong>GIP</strong>, допомагаючи зменшити апетит і надійно підтримувати контроль ваги разом із здоровою дієтою та помірною фізичною активністю.
               </p>
 
-              <div className="space-y-4">
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-1">
-                    <Check className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">Людям, які роками борються з вагою</h4>
-                    <p className="text-xs text-slate-500 mt-1">Тим, хто втомився від ефекту «йо-йо» (постійного повернення втраченої ваги після дієт).</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-1">
-                    <Check className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">Пацієнтам із супутніми ризиками</h4>
-                    <p className="text-xs text-slate-500 mt-1">За наявності метаболічного синдрому, предіабету чи інших хронічних станів, обтяжених вагою.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <div className="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-1">
-                    <Check className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-sm">Тим, для кого важливий тривалий результат</h4>
-                    <p className="text-xs text-slate-500 mt-1">Для людей, яким важливо м'яко перебудувати свої харчові звички без жорсткого психологічного навантаження.</p>
-                  </div>
+              <div className="border-t border-slate-100 pt-6">
+                <span className="block text-xs uppercase font-bold tracking-wider text-violet-600 mb-3">Як це працює простими словами:</span>
+                
+                <div className="p-4 rounded-2xl bg-violet-50 border border-violet-100 text-violet-950 text-xs font-medium space-y-2">
+                  <p className="italic">
+                    «Менше хаотичного апетиту → простіше дотримуватись індивідуального плану → більше шансів на стабільний контроль ваги та здорове утримання результату»
+                  </p>
                 </div>
               </div>
 
-              <div className="pt-4">
-                <a 
-                  href="#consultation" 
-                  className="inline-flex items-center gap-2 text-sm font-bold text-teal-700 hover:text-teal-900 transition-colors group"
-                >
-                  <span>Отримати індивідуальну консультацію лікаря</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
+              {/* Clinical image */}
+              <div className="relative h-44 rounded-2xl overflow-hidden shadow-sm border border-slate-100">
+                <img 
+                  src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=800&q=80" 
+                  alt="Clinical laboratory syringe medicine" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-violet-950/40 to-transparent"></div>
+                <div className="absolute bottom-3 left-4 text-white">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-teal-300">Сертифіковано в ЄС</span>
+                  <p className="text-xs font-bold">Оригінальна технологія KwikPen® для точного введення</p>
+                </div>
               </div>
-            </div>
 
-            {/* Quote Visual */}
-            <div className="relative">
-              <div className="p-8 md:p-12 rounded-3xl bg-white border border-slate-100 shadow-xl space-y-6">
-                <div className="flex gap-1 text-teal-500 text-xs font-bold uppercase tracking-wide">
-                  <span>Доказова медицина</span>
-                </div>
-                <p className="text-lg text-slate-700 italic">
-                  «Наша мета — не просто тимчасово знизити цифру на вагах. Ми прагнемо допомогти пацієнту стабілізувати метаболізм, покращити якість життя та зберегти досягнутий успіх на довгі роки.»
-                </p>
-                <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                  <div className="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-700 font-bold text-sm">
-                    ДМ
-                  </div>
-                  <div>
-                    <span className="font-bold text-slate-900 text-sm block">Рекомендації EMA</span>
-                    <span className="text-[10px] text-slate-400 block">Європейське агентство з лікарських засобів</span>
-                  </div>
-                </div>
-              </div>
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* Comparison Matrix Section */}
-      <section id="comparison" className="py-20 bg-white">
+      {/* Results Section: 3, 6, 12 Months Cards */}
+      <section id="results" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <span className="text-xs uppercase font-bold tracking-wider text-violet-600">Порівняльний аналіз</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-teal-950 tracking-tight">
-              Чим Мунджаро відрізняється від альтернатив?
+            <span className="text-xs uppercase font-bold tracking-wider text-teal-600 block">Чого очікувати</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-violet-950 tracking-tight">
+              Яких результатів можна очікувати на практиці?
             </h2>
-            <p className="text-slate-600 text-sm">
-              У сучасному медичному арсеналі найближчими сертифікованими альтернативами є препарати Wegovy та Saxenda. Нижче наведено об'єктивне порівняння їхніх характеристик.
+            <p className="text-slate-600 text-base">
+              Програма терапії розрахована на плавне та безпечне відновлення обмінних процесів. Ми виділяємо три ключові етапи.
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-3xl border border-slate-100 shadow-sm">
-            <table className="w-full text-left border-collapse bg-white min-w-[700px]">
-              <thead>
-                <tr className="bg-slate-50/80 border-b border-slate-100 text-slate-900 text-sm">
-                  <th className="p-6 font-bold">Характеристика</th>
-                  <th className="p-6 font-bold text-teal-900 bg-teal-50/40 relative">
-                    Мунджаро (Tirzepatide)
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-600 text-[9px] uppercase tracking-wider text-white px-2 py-0.5 rounded-full font-sans font-extrabold shadow-sm leading-none">
-                      Нове покоління
-                    </span>
-                  </th>
-                  <th className="p-6 font-bold text-slate-700">Wegovy (Semaglutide)</th>
-                  <th className="p-6 font-bold text-slate-700">Saxenda (Liraglutide)</th>
-                </tr>
-              </thead>
-              <tbody className="text-xs sm:text-sm text-slate-600 divide-y divide-slate-100">
-                <tr>
-                  <td className="p-6 font-bold text-slate-900">Діюча речовина</td>
-                  <td className="p-6 bg-teal-50/10 font-medium text-teal-950">Тирзепатид (Tirzepatide)</td>
-                  <td className="p-6">Семаглутид (Semaglutide)</td>
-                  <td className="p-6">Ліраглутид (Liraglutide)</td>
-                </tr>
-                <tr>
-                  <td className="p-6 font-bold text-slate-900">Рецепторна дія</td>
-                  <td className="p-6 bg-teal-50/10 font-medium text-teal-950 text-xs">
-                    <span className="inline-flex items-center gap-1.5 text-teal-700 font-bold bg-teal-50 px-2.5 py-1 rounded-md border border-teal-100">
-                      Подвійна дія (GIP + GLP-1)
-                    </span>
-                  </td>
-                  <td className="p-6">Одинарна дія (тільки GLP-1)</td>
-                  <td className="p-6">Одинарна дія (тільки GLP-1)</td>
-                </tr>
-                <tr>
-                  <td className="p-6 font-bold text-slate-900">Частота введення</td>
-                  <td className="p-6 bg-teal-50/10 font-medium text-teal-950">
-                    <span className="font-bold">1 раз на тиждень</span>
-                  </td>
-                  <td className="p-6">1 раз на тиждень</td>
-                  <td className="p-6">Щодня (1 раз на добу)</td>
-                </tr>
-                <tr>
-                  <td className="p-6 font-bold text-slate-900">Середня втрата ваги</td>
-                  <td className="p-6 bg-teal-50/10 font-medium text-teal-950">
-                    <strong className="text-teal-700 text-base">До 15% - 21%</strong> <span className="text-[10px] text-slate-400 block">(за 72 тижні клінічних досліджень)</span>
-                  </td>
-                  <td className="p-6">
-                    <strong>До 12% - 15%</strong> <span className="text-[10px] text-slate-400 block">(за 68 тижнів)</span>
-                  </td>
-                  <td className="p-6">
-                    <strong>До 8%</strong> <span className="text-[10px] text-slate-400 block">(за 56 тижнів)</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-6 font-bold text-slate-900">Режим адаптації</td>
-                  <td className="p-6 bg-teal-50/10 font-medium text-teal-950 text-xs">М'який, завдяки синергії GIP, що нівелює нудоту</td>
-                  <td className="p-6 text-xs">Потребує поступового збільшення дози</td>
-                  <td className="p-6 text-xs">Потребує щоденного моніторингу симптомів</td>
-                </tr>
-              </tbody>
-            </table>
+          {/* Three Modern Cards with generous padding and subtle color accents */}
+          <div className="grid md:grid-cols-3 gap-8">
+            
+            {/* Card 1: 3 Months */}
+            <div className="bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-xs relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-all duration-300">
+              {/* Light accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-teal-400"></div>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-teal-100 text-teal-950 flex items-center justify-center font-bold text-lg">
+                    3м
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-teal-600 bg-white px-2.5 py-1 rounded-full border border-slate-100">
+                    Перший етап
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-violet-950">Через 3 місяці:</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Перший крок до перебудови звичок. Організм пристосовується до легкого споживання їжі без занепокоєння.
+                  </p>
+                </div>
+
+                {/* Bullets with styled checkmarks */}
+                <div className="space-y-3.5 pt-2 border-t border-slate-200/60">
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">перші помітні зміни на вагах</span>
+                  </div>
+                  
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">суттєво менший апетит</span>
+                  </div>
+
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-teal-50 text-teal-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">легше контролювати харчування</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                <span>Очікуване зниження ваги</span>
+                <span className="text-teal-700 font-bold">-5% — -8%</span>
+              </div>
+            </div>
+
+            {/* Card 2: 6 Months */}
+            <div className="bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-xs relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-all duration-300">
+              {/* Light accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-violet-600"></div>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-violet-100 text-violet-950 flex items-center justify-center font-bold text-lg">
+                    6м
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-violet-600 bg-white px-2.5 py-1 rounded-full border border-slate-100">
+                    Активна фаза
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-violet-950">Через 6 місяців:</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Стабілізація метаболічних сигналів та відчутна легкість у рухах. Енергетичні резерви організму відновлюються.
+                  </p>
+                </div>
+
+                {/* Bullets */}
+                <div className="space-y-3.5 pt-2 border-t border-slate-200/60">
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-violet-50 text-violet-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">суттєве зниження ваги</span>
+                  </div>
+                  
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-violet-50 text-violet-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">значно більше щоденної енергії</span>
+                  </div>
+
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-violet-50 text-violet-700 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">значне покращення самопочуття</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                <span>Очікуване зниження ваги</span>
+                <span className="text-violet-700 font-bold">-10% — -15%</span>
+              </div>
+            </div>
+
+            {/* Card 3: 12 Months */}
+            <div className="bg-slate-50 p-8 sm:p-10 rounded-3xl border border-slate-100 shadow-xs relative overflow-hidden flex flex-col justify-between group hover:shadow-md transition-all duration-300">
+              {/* Light accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-2 bg-violet-950"></div>
+
+              <div className="space-y-6">
+                <div className="flex justify-between items-start">
+                  <div className="w-12 h-12 rounded-2xl bg-violet-950 text-teal-400 flex items-center justify-center font-bold text-lg">
+                    12м
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-violet-950 bg-white px-2.5 py-1 rounded-full border border-slate-100">
+                    Закріплення
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h3 className="text-xl font-bold text-violet-950">Через 12 місяців:</h3>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Новий спосіб життя стає вашою абсолютною нормою. Тіло повністю адаптувалося до оновленого здорового балансу.
+                  </p>
+                </div>
+
+                {/* Bullets */}
+                <div className="space-y-3.5 pt-2 border-t border-slate-200/60">
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">стабільний результат та плато</span>
+                  </div>
+                  
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">нові стійкі харчові звички</span>
+                  </div>
+
+                  <div className="flex gap-2.5 items-center">
+                    <div className="w-5 h-5 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center shrink-0">
+                      <Check className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-slate-700">суттєво вища загальна якість життя</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-6 mt-6 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                <span>Очікуване зниження ваги</span>
+                <span className="text-slate-900 font-bold">-15% — -25%</span>
+              </div>
+            </div>
+
           </div>
 
-          <div className="mt-6 p-5 rounded-2xl bg-slate-50 border border-slate-100 text-xs text-slate-500 max-w-4xl mx-auto flex gap-3">
-            <Info className="w-5 h-5 text-teal-600 shrink-0 mt-0.5" />
-            <p className="leading-relaxed">
-              <strong>Об'єктивна довідка:</strong> Ми не порівнюємо препарати за принципом «кращий» чи «гірший». Дані наведені виключно для демонстрації відмінностей у механізмах та режимах застосування, щоб полегшити предметне обговорення відповідного варіанту безпосередньо з вашим лікарем.
+        </div>
+      </section>
+
+      {/* Comparison Section: "Чим Мунджаро відрізняється від альтернатив" */}
+      <section id="comparison" className="py-20 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <span className="text-xs uppercase font-bold tracking-wider text-violet-600 block">Медичний контекст</span>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-violet-950 tracking-tight">
+              Чим «Мунджаро» відрізняється від альтернатив?
+            </h2>
+            <p className="text-slate-600 text-base">
+              У категорії сучасних засобів для регуляції ваги існують різні класи речовин. Ознайомтеся з об'єктивними науковими розбіжностями на базі звітів EMA.
             </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Content column: text from PDF */}
+            <div className="lg:col-span-5 space-y-6">
+              <div className="inline-block px-3 py-1 rounded-full bg-teal-50 text-teal-950 text-xs font-semibold border border-teal-100">
+                Порівняльний аналіз
+              </div>
+
+              <h3 className="text-2xl font-bold text-violet-950 leading-snug">
+                Подвійний вплив на рецептори — головна перевага
+              </h3>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                У цій категорії найближчими альтернативами є <strong>Wegovy</strong> (семаглутид) і <strong>Saxenda</strong> (ліраглутид). 
+              </p>
+
+              <p className="text-slate-600 text-sm leading-relaxed">
+                За даними EMA, Wegovy — це семаглутид із введенням <strong>1 раз на тиждень</strong>, а Saxenda — ліраглутид із <strong>щоденним введенням</strong>.
+              </p>
+
+              <div className="p-5 rounded-2xl bg-white border border-slate-200/60 space-y-3">
+                <h4 className="font-bold text-sm text-violet-950">Науковий факт:</h4>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  <strong>Мунджаро</strong> містить <strong>тирзепатид</strong> і працює одночасно через два рецептори: <strong>GLP-1 + GIP</strong>, тоді як Wegovy і Saxenda впливають виключно через один рецептор <strong>GLP-1</strong>. Це зручна та науково коректна відмінність.
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Comparative Visual Grid */}
+            <div className="lg:col-span-7 space-y-4">
+              
+              {/* Product 1: Mounjaro (Hero) */}
+              <div className="bg-white p-6 rounded-3xl border-2 border-violet-950 shadow-md relative overflow-hidden">
+                <div className="absolute right-0 top-0 bg-violet-950 text-teal-400 font-bold text-[10px] uppercase tracking-wider px-4 py-1.5 rounded-bl-xl">
+                  Передова формула
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                  <div>
+                    <h4 className="text-lg font-bold text-violet-950">Мунджаро <span className="text-xs font-normal text-slate-500">(Tirzepatide)</span></h4>
+                    <p className="text-xs text-slate-500 mt-1">Подвійний агоніст рецепторів GIP та GLP-1</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <span className="text-[10px] font-bold bg-violet-50 text-violet-950 px-2.5 py-1 rounded-md border border-violet-100">
+                      1 раз / тиждень
+                    </span>
+                    <span className="text-[10px] font-bold bg-teal-50 text-teal-950 px-2.5 py-1 rounded-md border border-teal-100">
+                      Подвійний ефект
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Detail bars */}
+                <div className="grid grid-cols-3 gap-4 pt-4 mt-4 border-t border-slate-100 text-xs">
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase">Речовина</span>
+                    <span className="font-bold text-violet-950 mt-0.5 block">Тирзепатид</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase">Механізм</span>
+                    <span className="font-bold text-violet-950 mt-0.5 block">GLP-1 + GIP</span>
+                  </div>
+                  <div>
+                    <span className="text-slate-400 block text-[10px] uppercase">Ефективність</span>
+                    <span className="font-bold text-teal-700 mt-0.5 block">Максимальна за EMA</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 2: Wegovy */}
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                  <div>
+                    <h4 className="text-base font-bold text-slate-700">Wegovy <span className="text-xs font-normal text-slate-400">(Semaglutide)</span></h4>
+                    <p className="text-xs text-slate-400 mt-0.5">Одинарний агоніст рецепторів GLP-1</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <span className="text-[10px] font-bold bg-slate-50 text-slate-500 px-2.5 py-1 rounded-md border border-slate-200">
+                      1 раз / тиждень
+                    </span>
+                    <span className="text-[10px] font-bold bg-slate-50 text-slate-500 px-2.5 py-1 rounded-md border border-slate-200">
+                      Один рецептор
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Product 3: Saxenda */}
+              <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs">
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                  <div>
+                    <h4 className="text-base font-bold text-slate-700">Saxenda <span className="text-xs font-normal text-slate-400">(Liraglutide)</span></h4>
+                    <p className="text-xs text-slate-400 mt-0.5">Одинарний агоніст рецепторів GLP-1 з щоденним введенням</p>
+                  </div>
+                  <div className="flex gap-2 shrink-0">
+                    <span className="text-[10px] font-bold bg-slate-50 text-slate-500 px-2.5 py-1 rounded-md border border-slate-200">
+                      Щодня
+                    </span>
+                    <span className="text-[10px] font-bold bg-slate-50 text-slate-500 px-2.5 py-1 rounded-md border border-slate-200">
+                      Один рецептор
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* Slogan Banner */}
+      <section className="py-16 bg-violet-950 text-white relative overflow-hidden">
+        {/* Abstract graphics */}
+        <div className="absolute right-0 bottom-0 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute left-10 top-0 w-64 h-64 bg-violet-800/20 rounded-full blur-3xl"></div>
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center space-y-6 relative z-10">
+          <span className="text-xs uppercase font-bold tracking-widest text-teal-400">Шанс на зміни</span>
+          <p className="text-2xl sm:text-3xl lg:text-4xl font-light leading-relaxed max-w-4xl mx-auto text-slate-100">
+            «Можливо, це ваша <strong className="font-extrabold text-white">остання невдала спроба</strong> схуднути. <br className="hidden sm:inline" />І перша — яка дійсно <span className="text-teal-300 font-bold underline decoration-teal-400">дасть стійкий результат</span>.»
+          </p>
+          <p className="text-sm text-slate-300 max-w-xl mx-auto">
+            Запишіться на детальну консультацію та дізнайтеся, чи підходить вам сучасна міжнародна програма медичного контролю ваги.
+          </p>
+          
+          <div className="pt-4">
+            <button 
+              onClick={() => scrollToSection("consultation")}
+              className="h-14 px-8 bg-teal-400 hover:bg-teal-500 text-teal-950 font-bold rounded-2xl transition-all text-sm uppercase tracking-wider shadow-lg shadow-teal-500/20"
+            >
+              Залишити запит на консультацію
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Interactive FAQ Section */}
-      <section id="faq" className="py-20 bg-slate-50 border-t border-slate-100">
+      {/* FAQ Section */}
+      <section id="faq" className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-            <span className="text-xs uppercase font-bold tracking-wider text-teal-600">Професійна довідка</span>
-            <h2 className="text-3xl font-bold text-teal-950 tracking-tight">
-              Часті питання та відповіді
+          
+          <div className="text-center space-y-4 mb-16">
+            <span className="text-xs uppercase font-bold tracking-wider text-teal-600 block">Медична довідка</span>
+            <h2 className="text-3xl font-extrabold text-violet-950 tracking-tight">
+              Питання та відповіді
             </h2>
             <p className="text-slate-600 text-sm">
-              Короткі та ємні відповіді на ключові питання щодо застосування препарату Мунджаро.
+              Відповіді на поширені питання пацієнтів відповідно до рекомендацій та офіційних матеріалів регуляторів.
             </p>
           </div>
 
-          <div className="space-y-3">
+          {/* JS Interactive Accordion */}
+          <div className="space-y-4" id="faq-accordion">
             {FAQS.map((faq, index) => {
               const isOpen = openFaq === index;
               return (
                 <div 
                   key={index} 
-                  className="bg-white rounded-2xl border border-slate-100 shadow-xs overflow-hidden transition-all duration-200"
+                  className="bg-slate-50 border border-slate-150 rounded-2xl overflow-hidden transition-all duration-200"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : index)}
-                    className="w-full text-left p-6 flex justify-between items-center gap-4 text-slate-800 hover:text-teal-950 transition-colors"
+                    className="w-full text-left p-6 flex justify-between items-center gap-4 text-slate-800 hover:text-violet-950 transition-colors cursor-pointer"
                   >
-                    <span className="font-bold text-sm sm:text-base">{faq.q}</span>
-                    <span className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${isOpen ? 'bg-teal-50 text-teal-600 rotate-180' : 'bg-slate-50 text-slate-500'}`}>
+                    <span className="font-bold text-sm sm:text-base text-violet-950">{faq.q}</span>
+                    <span className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all ${isOpen ? 'bg-violet-950 text-teal-400 rotate-180' : 'bg-slate-200 text-slate-600'}`}>
                       <ChevronDown className="w-4 h-4" />
                     </span>
                   </button>
-
-                  <div 
-                    className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? 'max-h-60 border-t border-slate-100/50' : 'max-h-0'}`}
-                  >
-                    <div className="p-6 text-sm text-slate-500 leading-relaxed bg-slate-50/30">
+                  
+                  {isOpen && (
+                    <div className="px-6 pb-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-200/40 pt-4 bg-white animate-fade-in">
                       {faq.a}
                     </div>
-                  </div>
+                  )}
                 </div>
               );
             })}
           </div>
+
         </div>
       </section>
 
-      {/* Consultation Form Section */}
-      <section id="consultation" className="py-20 bg-white">
+      {/* Consultation / Feedback Form Section */}
+      <section id="consultation" className="py-20 bg-slate-50 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-3xl overflow-hidden shadow-2xl relative">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-teal-800/20 rounded-full blur-3xl pointer-events-none"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-violet-800/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div className="grid lg:grid-cols-12 gap-12 p-8 md:p-16 relative z-10 items-center">
+          <div className="bg-white rounded-3xl border border-slate-200/80 shadow-xl overflow-hidden">
+            <div className="grid lg:grid-cols-12">
               
-              <div className="lg:col-span-6 space-y-6">
-                <span className="text-xs uppercase font-bold tracking-wider text-teal-400">Індивідуальний підхід</span>
-                <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
-                  Зробіть перший крок до керованого контролю ваги
-                </h2>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-                  Залиште заявку на детальну консультацію. Лікар або спеціаліст-координатор зв'яжеться з вами найближчим часом, щоб уточнити деталі, розповісти про режим терапії та підказати ваші наступні медичні кроки.
-                </p>
-                
-                <div className="p-5 rounded-2xl bg-white/5 border border-white/10 text-xs text-slate-400 space-y-2">
-                  <p><strong>Що ви отримаєте після відправлення форми?</strong></p>
-                  <ul className="list-disc pl-4 space-y-1">
-                    <li>Детальне роз'яснення медичних вимог та протипоказань.</li>
-                    <li>Інструкцію щодо проходження аналізів та вибору лікаря.</li>
-                    <li>Допомогу в оцінці вашої сумісності за рекомендаціями EMA.</li>
-                  </ul>
+              {/* Left Column: Form Info */}
+              <div className="lg:col-span-6 bg-violet-950 text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden">
+                {/* Background glow */}
+                <div className="absolute right-0 bottom-0 w-84 h-84 bg-teal-500/10 rounded-full blur-3xl"></div>
+
+                <div className="space-y-6 relative z-10">
+                  <span className="text-xs uppercase font-bold tracking-widest text-teal-300">Індивідуальний підхід</span>
+                  <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white leading-tight">
+                    Зробіть перший крок до керованого контролю ваги
+                  </h2>
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Залиште заявку на безкоштовний дзвінок-консультацію. Наш медичний спеціаліст допоможе розібратися, чи є цей варіант терапії оптимальним у вашій життєвій ситуації, та відповість на всі організаційні запитання.
+                  </p>
                 </div>
+
+                <div className="space-y-4 pt-10 relative z-10 border-t border-slate-800 mt-8">
+                  <div className="flex gap-4 items-start">
+                    <div className="w-10 h-10 rounded-xl bg-violet-900/50 flex items-center justify-center text-teal-300 shrink-0">
+                      <User className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm">Лікар або менеджер зв'яжеться</h4>
+                      <p className="text-xs text-slate-400 mt-0.5">Щоб уточнити ваші деталі, відповісти на запитання та підказати правильний наступний крок.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-start">
+                    <div className="w-10 h-10 rounded-xl bg-violet-900/50 flex items-center justify-center text-teal-300 shrink-0">
+                      <ShieldCheck className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm">Повна конфіденційність</h4>
+                      <p className="text-xs text-slate-400 mt-0.5">Ваша медична інформація та контактні дані захищені відповідно до стандартів лікарської таємниці.</p>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
-              <div className="lg:col-span-6">
+              {/* Right Column: Actual Feedback Form */}
+              <div className="lg:col-span-6 p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
                 {!formSubmitted ? (
-                  <form onSubmit={handleFormSubmit} className="bg-white text-slate-800 p-8 rounded-3xl space-y-6 shadow-xl border border-slate-100">
-                    <h3 className="text-xl font-bold text-teal-950">Запит на консультацію</h3>
+                  <form onSubmit={handleFormSubmit} className="space-y-6" id="consultation-form">
                     
+                    <div className="space-y-2">
+                      <h3 className="text-2xl font-extrabold text-violet-950">Форма консультації</h3>
+                      <p className="text-slate-500 text-xs sm:text-sm">
+                        Зробіть перший крок до керованого контролю ваги та отримайте консультацію щодо можливості терапії.
+                      </p>
+                    </div>
+
                     {formError && (
                       <div className="p-4 rounded-xl bg-red-50 text-red-600 text-xs font-semibold border border-red-100 flex items-center gap-2">
                         <AlertTriangle className="w-4 h-4 shrink-0" />
@@ -854,64 +1167,83 @@ export default function App() {
                     )}
 
                     <div className="space-y-4">
+                      {/* Name input */}
                       <div>
-                        <label className="block text-xs font-bold uppercase text-slate-400 mb-2" htmlFor="name">
-                          Ваше ім'я
+                        <label htmlFor="user-name" className="block text-xs font-bold uppercase text-slate-400 mb-2 tracking-wider">
+                          Ім'я
                         </label>
                         <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input
-                            id="name"
+                            id="user-name"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                            placeholder="Олена Ковальчук"
-                            className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all text-sm outline-none font-medium"
+                            placeholder="Введіть ваше ім'я"
+                            className="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-violet-600 focus:border-violet-600 transition-all"
                           />
                         </div>
                       </div>
 
+                      {/* Phone input */}
                       <div>
-                        <label className="block text-xs font-bold uppercase text-slate-400 mb-2" htmlFor="phone">
-                          Номер телефону
+                        <label htmlFor="user-phone" className="block text-xs font-bold uppercase text-slate-400 mb-2 tracking-wider">
+                          Телефон
                         </label>
                         <div className="relative">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <input
-                            id="phone"
+                            id="user-phone"
                             type="tel"
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
-                            placeholder="+380"
-                            className="w-full h-12 pl-12 pr-4 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-1 focus:ring-teal-500 transition-all text-sm outline-none font-medium"
+                            placeholder="+380 (__) ___-__-__"
+                            className="w-full h-12 px-4 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 text-sm focus:bg-white focus:ring-2 focus:ring-violet-600 focus:border-violet-600 transition-all"
                           />
                         </div>
                       </div>
+
+                      {/* Checkbox "Хочу консультацію" required by PDF */}
+                      <div className="pt-2">
+                        <label className="flex items-start gap-3 cursor-pointer">
+                          <input 
+                            type="checkbox" 
+                            checked={wantsConsultation}
+                            onChange={(e) => setWantsConsultation(e.target.checked)}
+                            className="w-4 h-4 text-violet-950 bg-slate-50 border-slate-200 rounded focus:ring-violet-600 shrink-0 mt-0.5"
+                          />
+                          <span className="text-xs text-slate-600 font-medium">
+                            Я хочу отримати консультацію та ознайомитися з можливими варіантами терапії.
+                          </span>
+                        </label>
+                      </div>
                     </div>
 
-                    <div className="flex items-start gap-2.5 text-xs text-slate-400 leading-snug">
-                      <Lock className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
-                      <span>Ваші персональні дані захищені та використовуються виключно для медичного консультування.</span>
+                    <div className="pt-2">
+                      <button
+                        type="submit"
+                        className="w-full h-14 bg-teal-400 hover:bg-teal-500 text-teal-950 font-extrabold rounded-2xl transition-all shadow-lg shadow-teal-100 flex items-center justify-center gap-2 text-sm uppercase tracking-wider cursor-pointer"
+                        id="submit-btn"
+                      >
+                        <span>Хочу консультацію</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
                     </div>
 
-                    <button
-                      type="submit"
-                      className="w-full h-14 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition-all shadow-md shadow-teal-100 flex items-center justify-center gap-2"
-                    >
-                      <span>Хочу консультацію</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
+                    <p className="text-[10px] text-slate-400 text-center leading-relaxed">
+                      Залиште заявку, щоб отримати консультацію, інструкцію та зрозуміти, чи може цей варіант бути доречним саме у вашій ситуації.
+                    </p>
+
                   </form>
                 ) : (
-                  <div className="bg-white text-slate-800 p-8 sm:p-10 rounded-3xl text-center space-y-6 shadow-xl border border-slate-100 animate-fade-in">
+                  <div className="text-center space-y-6 py-6 animate-fade-in">
+                    
                     <div className="w-16 h-16 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto">
                       <CheckCircle2 className="w-10 h-10" />
                     </div>
 
                     <div className="space-y-2">
-                      <h3 className="text-2xl font-bold text-teal-950">Заявку успішно відправлено!</h3>
+                      <h3 className="text-2xl font-bold text-violet-950">Заявку успішно відправлено!</h3>
                       <p className="text-slate-500 text-sm max-w-sm mx-auto leading-relaxed">
-                        Дякуємо, <strong>{name}</strong>. Наш медичний координатор зв'яжеться з вами за номером <strong>{phone}</strong> найближчим часом.
+                        Дякуємо, <strong>{name}</strong>. Наш медичний координатор зв'яжеться з вами за номером <strong>{phone}</strong> найближчим часом, щоб розібрати доцільність терапії Мунджаро у вашому випадку.
                       </p>
                     </div>
 
@@ -922,11 +1254,12 @@ export default function App() {
                           setName("");
                           setPhone("");
                         }}
-                        className="text-xs font-bold text-teal-700 hover:text-teal-900"
+                        className="text-xs font-bold text-violet-600 hover:text-violet-950"
                       >
                         Відправити ще одну заявку
                       </button>
                     </div>
+
                   </div>
                 )}
               </div>
@@ -955,13 +1288,13 @@ export default function App() {
             </div>
           </div>
 
-          <div className="space-y-4 max-w-5xl leading-relaxed text-slate-500">
+          <div className="space-y-4 max-w-5xl leading-relaxed text-slate-500" id="regulatory-disclaimer">
             <h4 className="font-bold text-slate-300 uppercase tracking-wider text-[10px]">Важлива медична інформація (Disclaimer):</h4>
             <p>
-              Інформація, опублікована на цій сторінці, має суто інформаційний та просвітницький характер і за жодних умов не може використовуватися як медична порада, засіб самодіагностики чи керівництво до лікування.
+              Інформація на сторінці не є медичною порадою. Мунджаро є рецептурним препаратом. Застосування, дозування, сумісність з іншими ліками та доцільність терапії визначає лише лікар. Можливі побічні реакції, зокрема з боку травної системи. Перед застосуванням ознайомтесь з інструкцією та зверніться до фахівця.
             </p>
             <p>
-              Мунджаро (Tirzepatide) є рецептурним препаратом. Призначення терапії, підбір індивідуального дозування, контроль сумісності з іншими препаратами та остаточна оцінка доцільності лікування здійснюється виключно дипломованим лікарем після проведення детального огляду, збору анамнезу та оцінки лабораторних аналізів.
+              Призначення терапії, підбір індивідуального дозування, контроль сумісності з іншими препаратами та остаточна оцінка доцільності лікування здійснюється виключно дипломованим лікарем після проведення детального огляду, збору анамнезу та оцінки лабораторних аналізів.
             </p>
             <p>
               Застосування препарату пов'язане з можливими побічними ефектами, зокрема, з боку травної (шлунково-кишкової) системи. Будь ласка, перед початком використання обов'язково ознайомтеся з офіційною інструкцією до препарату та проконсультуйтеся із сертифікованим фахівцем.
@@ -971,9 +1304,9 @@ export default function App() {
           <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-600">
             <span>© 2026 Мунджаро Інфо. Всі права захищено.</span>
             <div className="flex gap-4">
-              <a href="#about" className="hover:text-slate-400">Про препарат</a>
-              <a href="#comparison" className="hover:text-slate-400">Порівняння</a>
-              <a href="#faq" className="hover:text-slate-400">Запитання</a>
+              <button onClick={() => scrollToSection("diagnostics")} className="hover:text-slate-400">Про препарат</button>
+              <button onClick={() => scrollToSection("comparison")} className="hover:text-slate-400">Порівняння</button>
+              <button onClick={() => scrollToSection("faq")} className="hover:text-slate-400">Запитання</button>
             </div>
           </div>
 
