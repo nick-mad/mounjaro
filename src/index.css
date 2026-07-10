@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
+/* Custom smooth scrolling and scroll padding for navigation */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Custom styles for high-end glowing accents */
+.bg-medical-gradient {
+  background: radial-gradient(120% 120% at 50% 10%, #ffffff 40%, #f0fdfa 75%, #f5f3ff 100%);
+}
+
+.bg-medical-dark-gradient {
+  background: radial-gradient(120% 120% at 50% 10%, #1e1b4b 30%, #0f172a 75%, #020617 100%);
+}
+

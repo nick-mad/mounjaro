@@ -1,0 +1,6 @@
+{
+  "name": "Мунджаро — Контроль ваги",
+  "description": "Преміальний інформаційний лендінг препарату Мунджаро для контролю ваги та медикаментозної підтримки",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
