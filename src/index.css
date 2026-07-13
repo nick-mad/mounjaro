@@ -1,23 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", var(--font-sans);
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Custom smooth scrolling and scroll padding for navigation */
+/* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
 }
 
-/* Custom styles for high-end glowing accents */
+/* Custom styles for high-end feel */
 .bg-medical-gradient {
-  background: radial-gradient(120% 120% at 50% 10%, #ffffff 40%, #f8fafc 75%, #faf5ff 100%);
-}
-
-.bg-medical-dark-gradient {
-  background: radial-gradient(120% 120% at 50% 10%, #1e1b4b 30%, #0f172a 75%, #020617 100%);
+  background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.05), transparent 40%),
+              radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.03), transparent 50%);
 }
 
