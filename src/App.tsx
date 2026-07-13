@@ -117,7 +117,7 @@ export default function App() {
             </header>
 
             {/* Slide 1: Hero Example (Приклад додаткового Hero-блоку) */}
-            <section className="relative overflow-hidden bg-whiteborder-b border-slate-100"
+            <section className="relative overflow-hidden bg-white border-b border-slate-100"
                      id="hero-section2">
                 <div className="relative flex content-center items-center justify-center min-h-[80vh]">
                     <div className="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero.png')]">
