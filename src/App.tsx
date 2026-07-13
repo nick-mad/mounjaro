@@ -121,18 +121,18 @@ export default function App() {
                      id="hero-section2">
                 <div className="relative flex content-center items-center justify-center min-h-[80vh]">
                     <div className="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero.png')]">
-                        <span class="w-full h-full absolute opacity-75 bg-black"></span>-
+                        <span className="w-full h-full absolute opacity-50 bg-black"></span>
                     </div>
                     <div className="container relative mx-auto px-4">
                         <div className="items-center flex flex-wrap">
                             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  relative z-10 text-center">
-                                <h1 className="text-slate-900 font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight">
-                                    Мінус 10–25 кг без виснажливих дієт <br/>та постійного відчуття голод
+                                <h1 className="text-slate-100 font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight">
+                                    Мінус 10–25 кг без виснажливих дієт <br/>та постійного відчуття голоду
                                 </h1>
                                 <div className="h-1.5 overflow-hidden flex justify-center mt-6">
                                     <div className="w-24 h-full bg-[#0b483a] rounded-full"></div>
                                 </div>
-                                <p className="mt-8 text-xl md:text-2xl text-slate-600 font-medium">
+                                <p className="mt-8 text-xl md:text-2xl text-slate-300 font-medium">
                                     Контроль ваги під наглядом лікаря з використанням сучасних міжнародних протоколів лікування зайвої ваги
                                 </p>
                             </div>
