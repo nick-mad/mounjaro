@@ -116,6 +116,31 @@ export default function App() {
                 </div>
             </header>
 
+            {/* Slide 1: Hero Example (Приклад додаткового Hero-блоку) */}
+            <section className="relative overflow-hidden bg-whiteborder-b border-slate-100"
+                     id="hero-section2">
+                <div className="relative flex content-center items-center justify-center min-h-[80vh]">
+                    <div className="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero.png')]">
+                        <span class="w-full h-full absolute opacity-75 bg-black"></span>-
+                    </div>
+                    <div className="container relative mx-auto px-4">
+                        <div className="items-center flex flex-wrap">
+                            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  relative z-10 text-center">
+                                <h1 className="text-slate-900 font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight">
+                                    Мінус 10–25 кг без виснажливих дієт <br/>та постійного відчуття голод
+                                </h1>
+                                <div className="h-1.5 overflow-hidden flex justify-center mt-6">
+                                    <div className="w-24 h-full bg-[#0b483a] rounded-full"></div>
+                                </div>
+                                <p className="mt-8 text-xl md:text-2xl text-slate-600 font-medium">
+                                    Контроль ваги під наглядом лікаря з використанням сучасних міжнародних протоколів лікування зайвої ваги
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* Slide 1: Hero (Перший екран) */}
             <section className="relative overflow-hidden bg-medical-gradient py-12 lg:py-24 border-b border-slate-50"
                      id="hero-section">
