@@ -100,6 +100,7 @@ export default function App() {
                     <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
                         <a href="#about-section" className="hover:text-[#0b483a] transition-colors">Про Мунджаро</a>
                         <a href="#how-it-works" className="hover:text-[#0b483a] transition-colors">Як це працює</a>
+                        <a href="#treatment-guide" className="hover:text-[#0b483a] transition-colors">Процес лікування</a>
                         <a href="#comparison" className="hover:text-[#0b483a] transition-colors">Порівняння</a>
                         <a href="#faq" className="hover:text-[#0b483a] transition-colors">FAQ</a>
                     </nav>
@@ -362,7 +363,7 @@ export default function App() {
                     <div
                         className="bg-[#0b483a] rounded-3xl p-8 sm:p-12 text-white text-center space-y-4 mb-16 shadow-xl">
                         <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight max-w-3xl mx-auto leading-snug">
-                            Що таке «Мунджаро»? Як він працює? Кому підходить?
+                            Що таке «Мунджаро»? <br />Як він працює?
                         </h2>
                     </div>
 
@@ -484,6 +485,151 @@ export default function App() {
                 </button>
               </div>
 */}
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            {/* Покроковий гайд лікування */}
+            <section className="py-20 bg-slate-50 border-b border-slate-100" id="treatment-guide">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
+                        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+                            Як проходить лікування Мунджаро: покроковий гайд
+                        </h2>
+                        <p className="text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+                            Терапія препаратом Мунджаро (тирзепатид) — це системний процес, який проходить під контролем спеціаліста і складається з чотирьох чітких етапів
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                        {/* Stage 1 */}
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 1</span>
+                                    <span className="text-3xl font-bold font-mono text-emerald-200">01</span>
+                                </div>
+                                <h3 className="font-display text-xl font-bold text-slate-900">
+                                    Консультація та підготовка
+                                </h3>
+                                <div className="space-y-4 text-slate-700 text-sm sm:text-base font-light">
+                                    <div className="space-y-1">
+                                        <h4 className="font-semibold text-slate-950 flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                                            Візит до ендокринолога:
+                                        </h4>
+                                        <p className="pl-3.5 text-slate-600 text-sm">
+                                            Лікар оцінює загальний стан здоров'я, збирає анамнез та виключає протипоказання
+                                        </p>
+                                    </div>
+                                    <div className="space-y-1">
+                                        <h4 className="font-semibold text-slate-950 flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                                            Індивідуальні обстеження:
+                                        </h4>
+                                        <p className="pl-3.5 text-slate-600 text-sm">
+                                            Вам не потрібно здавати все підряд — саме на консультації лікар визначить, які аналізи необхідні саме вам
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Stage 2 */}
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 2</span>
+                                    <span className="text-3xl font-bold font-mono text-emerald-200">02</span>
+                                </div>
+                                <h3 className="font-display text-xl font-bold text-slate-900">
+                                    Схема прийому та адаптація (1 укол на тиждень)
+                                </h3>
+                                <p className="text-slate-600 text-sm leading-relaxed font-light">
+                                    Препарат вводиться підшкірно один раз на тиждень. Для м'якої адаптації організму доза збільшується поступово:
+                                </p>
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                                        <span className="text-xs font-bold text-[#0b483a] block mb-1">1–4 тиждень:</span>
+                                        <p className="text-xs text-slate-600">
+                                            Стартова доза 2,5 мг. Організм звикає, знижується апетит
+                                        </p>
+                                    </div>
+                                    <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                                        <span className="text-xs font-bold text-[#0b483a] block mb-1">5–8 тиждень:</span>
+                                        <p className="text-xs text-slate-600">
+                                            Збільшення дози до 5 мг. Починається активне зниження ваги
+                                        </p>
+                                    </div>
+                                    <div className="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                                        <span className="text-xs font-bold text-[#0b483a] block mb-1">З 9-го тижня:</span>
+                                        <p className="text-xs text-slate-600">
+                                            За потреби та під контролем лікаря дозу можна поетапно підвищувати (із кроком 2,5 мг кожні 4 тижні) до досягнення оптимального ефекту. Максимальна доза — 15 мг
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Stage 3 */}
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 3</span>
+                                    <span className="text-3xl font-bold font-mono text-emerald-200">03</span>
+                                </div>
+                                <h3 className="font-display text-xl font-bold text-slate-900">
+                                    Чого очікувати в цифрах? (Динаміка результату)
+                                </h3>
+                                <p className="text-slate-600 text-sm leading-relaxed font-light">
+                                    Втрата ваги відбувається поступово і залежить від початкових показників, дієти та фізичної активності:
+                                </p>
+                                <div className="space-y-3">
+                                    <div className="flex justify-between items-center p-3 bg-emerald-50/40 rounded-xl border border-emerald-100/30 text-sm font-medium">
+                                        <span className="text-slate-700">3 місяці (12 тижнів):</span>
+                                        <span className="text-[#0b483a] font-bold">мінус близько 8% від початкової ваги</span>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 bg-emerald-50/40 rounded-xl border border-emerald-100/30 text-sm font-medium">
+                                        <span className="text-slate-700">6 місяців (24 тижні):</span>
+                                        <span className="text-[#0b483a] font-bold">середня втрата ваги складає 12–15%</span>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 bg-[#0b483a] text-white rounded-xl text-sm font-medium shadow-sm">
+                                        <span>12–18 місяців (72 тижні):</span>
+                                        <span className="font-bold">зниження ваги на 15–21%</span>
+                                    </div>
+                                    <p className="text-[11px] text-slate-400 font-light italic mt-1">
+                                        *за умови дотримання курсу та рекомендацій лікаря
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Stage 4 */}
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+                            <div className="space-y-6">
+                                <div className="flex items-center justify-between">
+                                    <span className="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 4</span>
+                                    <span className="text-3xl font-bold font-mono text-emerald-200">04</span>
+                                </div>
+                                <h3 className="font-display text-xl font-bold text-slate-900">
+                                    Тривалість курсу
+                                </h3>
+                                <div className="space-y-4">
+                                    <p className="text-slate-700 text-sm sm:text-base font-light leading-relaxed">
+                                        Препарат застосовується щонайменше до досягнення вашої здорової цільової ваги. Для стійкого результату та перебудови метаболізму повний курс зазвичай триває від 12 до 18 місяців. Точний термін визначає ендокринолог індивідуально.
+                                    </p>
+                                    <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+                                        <Clock className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+                                        <span className="text-xs text-slate-500 font-medium">
+                      Повний курс зазвичай триває від 12 до 18 місяців для стійкого результату та перебудови метаболізму
+                    </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
