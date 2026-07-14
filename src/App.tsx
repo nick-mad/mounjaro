@@ -662,7 +662,6 @@ export default function App() {
                         {/* Left Box: Descriptive Info copy blocks */}
                         <div className="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
                             <div className="space-y-4">
-                                <span className="text-xs font-bold text-[#0b483a] uppercase tracking-widest">Зворотний зв'язок</span>
                                 <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
                                     Форма консультації
                                 </h2>
@@ -674,27 +673,27 @@ export default function App() {
 
                             <div className="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4 shadow-sm">
                                 <div className="flex gap-4 items-start">
-                  <span className="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
-                    <Phone className="w-5 h-5"/>
-                  </span>
+                                    <span className="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
+                                      <Phone className="w-5 h-5"/>
+                                    </span>
                                     <div>
                                         <h4 className="text-sm font-semibold text-slate-900">Швидкий дзвінок</h4>
                                         <p className="text-xs text-slate-500 mt-1">
-                                            Лікар або менеджер зв’яжеться, щоб уточнити деталі та підказати наступний
-                                            крок
+                                            Запишіться на безкоштовну 15-хвилинну консультацію досвідченого лікаря-ендокринолога.
+
                                         </p>
                                     </div>
                                 </div>
 
                                 <div className="flex gap-4 items-start border-t border-slate-200/50 pt-4">
-                  <span className="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
-                    <FileText className="w-5 h-5"/>
-                  </span>
+                                    <span className="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
+                                      <FileText className="w-5 h-5"/>
+                                    </span>
                                     <div>
                                         <h4 className="text-sm font-semibold text-slate-900">Отримання інформації</h4>
                                         <p className="text-xs text-slate-500 mt-1">
-                                            Залиште заявку, щоб отримати консультацію, інструкцію та зрозуміти, чи може
-                                            цей варіант бути доречним саме у вашій ситуації.
+                                            Лікар відповість на всі ваші запитання, оцінить, чи підходить вам терапія Mounjaro,
+                                            розповість про очікувані результати, можливі побічні ефекти, підбере індивідуальну схему лікування та пояснить, як досягти безпечного й стійкого зниження ваги.
                                         </p>
                                     </div>
                                 </div>
