@@ -110,7 +110,7 @@ export default function App() {
                             className="inline-flex items-center justify-center px-5 h-11 text-xs font-semibold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full transition-all duration-300 shadow-sm"
                             id="header-cta-btn"
                         >
-                            Дізнатися, чи підходить вам
+                            Безкоштовна консультація
                         </button>
                     </div>
                 </div>
