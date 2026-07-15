@@ -1,13 +1,655 @@
 <!doctype html>
-<html lang="en">
+<html lang="uk">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mounjaro</title>
+    <title>Мунджаро — Програма контролю ваги</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="min-h-screen bg-white text-slate-900 font-sans">
+      <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="font-display text-2xl font-bold tracking-widest text-[#0b483a]">МУНДЖАРО</span>
+            <!--sspan class="hidden sm:inline-block h-5 w-px bg-slate-200"></span>
+            <pan class="hidden sm:inline-block text-xs font-medium text-slate-500 uppercase tracking-widest">
+              Програма контролю ваги
+            </span-->
+          </div>
+          <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <a href="#about-section" class="hover:text-[#0b483a] transition-colors">Про Мунджаро</a>
+            <a href="#how-it-works" class="hover:text-[#0b483a] transition-colors">Як це працює</a>
+            <a href="#treatment-guide" class="hover:text-[#0b483a] transition-colors">Процес лікування</a>
+            <a href="#comparison" class="hover:text-[#0b483a] transition-colors">Порівняння</a>
+            <a href="#faq" class="hover:text-[#0b483a] transition-colors">FAQ</a>
+          </nav>
+          <button class="js-scroll-to-form inline-flex items-center justify-center px-5 h-11 text-xs font-semibold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full">
+            Безкоштовна консультація
+          </button>
+        </div>
+      </header>
+
+      <section class="relative overflow-hidden bg-white border-b border-slate-100" id="hero-section2">
+        <div class="relative flex content-center items-center justify-center min-h-[80vh]">
+          <div class="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero.png')]">
+            <span class="w-full h-full absolute opacity-50 bg-black"></span>
+          </div>
+          <div class="container relative mx-auto px-4">
+            <div class="items-center flex flex-wrap">
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <h1 class="text-slate-100 font-extrabold text-4xl md:text-5xl lg:text-6xl leading-tight">
+                  Мінус 10–25 кг без виснажливих дієт <br />та постійного відчуття голоду
+                </h1>
+                <div class="h-1.5 overflow-hidden flex justify-center mt-6">
+                  <div class="w-24 h-full bg-[#0b483a] rounded-full"></div>
+                </div>
+                <p class="mt-8 text-xl md:text-2xl text-slate-300 font-medium">
+                  Контроль ваги під наглядом лікаря з використанням сучасних міжнародних протоколів лікування зайвої ваги
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-slate-50 border-b border-slate-100" id="recognize-yourself">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-8">
+              <div class="space-y-4">
+                <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Впізнаєте себе?</h2>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Постійно думаю про їжу</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Зриваюся після чергової дієти</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Вага повертається після схуднення</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Втомлююся навіть від невеликого навантаження</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Соромлюся свого тіла</span>
+                </div>
+                <div class="flex items-start gap-3 p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-emerald-100 transition-colors">
+                  <span class="flex-shrink-0 w-6 h-6 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-sm">!</span>
+                  <span class="text-sm sm:text-base text-slate-700 font-medium">Аналізи стають гіршими щороку</span>
+                </div>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-amber-50/70 border border-amber-100 space-y-2">
+                <p class="text-base sm:text-lg font-semibold text-amber-900">Якщо ви хоча б тричі впізнали себе — ви не самотні</p>
+              </div>
+
+              <div class="space-y-4 border-l-4 border-[#0b483a] pl-5 py-2">
+                <p class="text-slate-700 text-base sm:text-lg leading-relaxed font-light">
+                  За сучасними даними ожиріння — це не слабкість характеру, а хронічне захворювання,
+                  яке потребує лікування так само, як гіпертонія чи цукровий діабет.
+                </p>
+              </div>
+
+              <div>
+                <button class="js-scroll-to-form inline-flex items-center justify-center px-8 h-12 text-xs font-bold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full transition-all duration-300 shadow-md">
+                  Дізнатися, чи підходить вам
+                </button>
+              </div>
+            </div>
+
+            <div class="lg:col-span-5 relative">
+              <div class="absolute inset-0 bg-emerald-200/40 rounded-3xl -rotate-2 opacity-50 blur-lg"></div>
+              <div class="relative rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-100">
+                <img src="/assets/image.png" alt="Вимірювання талії сантиметровою стрічкою" referrerpolicy="no-referrer" class="w-full h-[500px] object-cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-white border-b border-slate-50" id="how-it-works">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+              Як працює сучасна медикаментозна терапія контролю ваги
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+              <div class="p-6 sm:p-8 rounded-3xl bg-emerald-50/50 border border-emerald-100/50 space-y-6">
+                <h3 class="font-display text-xl font-bold text-slate-900 flex items-center gap-2">
+                  <span class="p-1 rounded-md bg-[#0b483a] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Лікування допомагає:
+                </h3>
+                <ul class="space-y-4">
+                  <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2.5 flex-shrink-0"></span><span class="text-slate-700 text-base font-medium">швидше насичуватися;</span></li>
+                  <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2.5 flex-shrink-0"></span><span class="text-slate-700 text-base font-medium">довше не відчувати голод;</span></li>
+                  <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2.5 flex-shrink-0"></span><span class="text-slate-700 text-base font-medium">зменшити потяг до їжі;</span></li>
+                  <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2.5 flex-shrink-0"></span><span class="text-slate-700 text-base font-medium">контролювати розмір порцій;</span></li>
+                  <li class="flex items-start gap-3"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600 mt-2.5 flex-shrink-0"></span><span class="text-slate-700 text-base font-medium">поступово знижувати вагу.</span></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-8">
+              <h3 class="font-display text-xl font-bold text-slate-900 border-b border-slate-100 pb-4">Яких результатів можна очікувати:</h3>
+              <div class="space-y-6">
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <h4 class="font-display text-lg font-bold text-[#0b483a]">Через 3 місяці:</h4>
+                  </div>
+                  <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">перші помітні зміни</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">менший апетит</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">легше контролювати харчування</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <h4 class="font-display text-lg font-bold text-[#0b483a]">Через 6 місяців:</h4>
+                  </div>
+                  <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">суттєве зниження ваги</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">більше енергії</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">покращення самопочуття</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all">
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                    <h4 class="font-display text-lg font-bold text-[#0b483a]">Через 12 місяців:</h4>
+                  </div>
+                  <ul class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">стабільний результат</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">нові харчові звички</span>
+                    </li>
+                    <li class="flex items-center gap-2 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600 flex-shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                      <span class="text-xs sm:text-sm text-slate-700 font-medium">вища якість життя</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-slate-50 border-b border-slate-100" id="about-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="bg-[#0b483a] rounded-3xl p-8 sm:p-12 text-white text-center space-y-4 mb-16 shadow-xl">
+            <h2 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight max-w-3xl mx-auto leading-snug">
+              Що таке «Мунджаро»? <br />Як він працює?
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-5 relative order-last lg:order-first">
+              <div class="relative rounded-3xl overflow-hidden p-2 flex flex-col items-center">
+                <img src="/assets/medical-syringe-pen.png" alt="Медичний шприц-ручка або препарат Мунджаро у коробці" referrerpolicy="no-referrer" class="w-full h-[500px] object-cover rounded-2xl" />
+                <div class="pt-4">
+                  <button class="js-scroll-to-form inline-flex items-center justify-center px-8 h-12 text-xs font-bold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full transition-all duration-300 shadow-md">
+                    Дізнатися, чи підходить вам
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-8">
+              <div class="space-y-4">
+                <h3 class="font-display text-2xl font-bold text-[#0b483a]">Що таке "Мунджаро":</h3>
+                <p class="text-slate-700 text-base sm:text-lg leading-relaxed font-light">
+                  Мунджаро — це препарат у вигляді розчину для ін'єкцій у шприц-ручці. Він діє через
+                  механізм GLP-1 і GIP, допомагаючи зменшити апетит і підтримувати контроль ваги разом
+                  із дієтою та фізичною активністю.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <h3 class="font-display text-xl font-bold text-slate-900">Як він працює:</h3>
+                <p class="text-slate-700 text-base leading-relaxed font-light bg-white p-5 rounded-2xl border border-slate-100 shadow-sm">
+                  <span class="font-semibold text-slate-900 block mb-1">Простими словами:</span>
+                  допомагає зменшити апетит і підтримувати контроль ваги разом із дієтою та фізичною активністю.
+                </p>
+              </div>
+
+              <div class="space-y-4">
+                <h3 class="font-display text-xl font-bold text-slate-900">Тобто:</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+                  <div class="bg-emerald-50/50 border border-emerald-100/50 rounded-2xl p-5 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-2">Крок 1</span>
+                    <p class="text-sm font-semibold text-slate-800">«Менше хаотичного апетиту»</p>
+                    <div class="flex justify-end mt-4 text-[#0b483a]">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden md:block"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                  </div>
+                  <div class="bg-emerald-50/50 border border-emerald-100/50 rounded-2xl p-5 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-2">Крок 2</span>
+                    <p class="text-sm font-semibold text-slate-800">«простіше дотримуватись плану»</p>
+                    <div class="flex justify-end mt-4 text-[#0b483a]">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden md:block"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                  </div>
+                  <div class="bg-emerald-50/50 border border-emerald-100/50 rounded-2xl p-5 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-emerald-800 uppercase tracking-widest block mb-2">Крок 3</span>
+                    <p class="text-sm font-semibold text-slate-800">«більше шансів на стабільний контроль ваги»</p>
+                    <div class="flex justify-end mt-4 text-[#0b483a]">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 hidden md:block"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-slate-50 border-b border-slate-100" id="treatment-guide">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="bg-[#0b483a] rounded-3xl p-8 sm:p-12 text-white text-center space-y-4 mb-16 shadow-xl">
+            <h2 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight max-w-3xl mx-auto leading-snug">
+              Як проходить лікування Мунджаро: покроковий гайд
+            </h2>
+            <p class="text-base sm:text-lg text-emerald-100 max-w-2xl mx-auto font-light leading-relaxed">
+              Терапія препаратом Мунджаро (тирзепатид) — це системний процес, який проходить під контролем спеціаліста і складається з чотирьох чітких етапів
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 1</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-200">01</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900">Консультація та підготовка</h3>
+                <div class="space-y-4 text-slate-700 text-sm sm:text-base font-light">
+                  <div class="space-y-1">
+                    <h4 class="font-semibold text-slate-950 flex items-center gap-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                      Візит до ендокринолога:
+                    </h4>
+                    <p class="pl-3.5 text-slate-600 text-sm">Лікар оцінює загальний стан здоров'я, збирає анамнез та виключає протипоказання</p>
+                  </div>
+                  <div class="space-y-1">
+                    <h4 class="font-semibold text-slate-950 flex items-center gap-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                      Індивідуальні обстеження:
+                    </h4>
+                    <p class="pl-3.5 text-slate-600 text-sm">Вам не потрібно здавати все підряд — саме на консультації лікар визначить, які аналізи необхідні саме вам</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 2</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-200">02</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900">Схема прийому та адаптація (1 укол на тиждень)</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">Препарат вводиться підшкірно один раз на тиждень. Для м'якої адаптації організму доза збільшується поступово:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-[#0b483a] block mb-1">1–4 тиждень:</span>
+                    <p class="text-xs text-slate-600">Стартова доза 2,5 мг. Організм звикає, знижується апетит</p>
+                  </div>
+                  <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-[#0b483a] block mb-1">5–8 тиждень:</span>
+                    <p class="text-xs text-slate-600">Збільшення дози до 5 мг. Починається активне зниження ваги</p>
+                  </div>
+                  <div class="p-3 bg-slate-50 rounded-2xl border border-slate-100 flex flex-col justify-between">
+                    <span class="text-xs font-bold text-[#0b483a] block mb-1">З 9-го тижня:</span>
+                    <p class="text-xs text-slate-600">За потреби та під контролем лікаря дозу можна поетапно підвищувати (із кроком 2,5 мг кожні 4 тижні) до досягнення оптимального ефекту. Максимальна доза — 15 мг</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 3</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-200">03</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900">Чого очікувати в цифрах? (Динаміка результату)</h3>
+                <p class="text-slate-600 text-sm leading-relaxed font-light">Втрата ваги відбувається поступово і залежить від початкових показників, дієти та фізичної активності:</p>
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center p-3 bg-emerald-50/40 rounded-xl border border-emerald-100/30 text-sm font-medium">
+                    <span class="text-slate-700">3 місяці (12 тижнів):</span>
+                    <span class="text-[#0b483a] font-bold">мінус близько 8% від початкової ваги</span>
+                  </div>
+                  <div class="flex justify-between items-center p-3 bg-emerald-50/40 rounded-xl border border-emerald-100/30 text-sm font-medium">
+                    <span class="text-slate-700">6 місяців (24 тижні):</span>
+                    <span class="text-[#0b483a] font-bold">середня втрата ваги складає 12–15%</span>
+                  </div>
+                  <div class="flex justify-between items-center p-3 bg-[#0b483a] text-white rounded-xl text-sm font-medium shadow-sm">
+                    <span>12–18 місяців (72 тижні):</span>
+                    <span class="font-bold">зниження ваги на 15–21%</span>
+                  </div>
+                  <p class="text-[11px] text-slate-400 font-light italic mt-1">*за умови дотримання курсу та рекомендацій лікаря</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-150 shadow-sm flex flex-col justify-between hover:border-emerald-200 transition-all duration-300">
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 4</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-200">04</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900">Тривалість курсу</h3>
+                <div class="space-y-4">
+                  <p class="text-slate-700 text-sm sm:text-base font-light leading-relaxed">Препарат застосовується щонайменше до досягнення вашої здорової цільової ваги. Для стійкого результату та перебудови метаболізму повний курс зазвичай триває від 12 до 18 місяців. Точний термін визначає ендокринолог індивідуально.</p>
+                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100 flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-emerald-600 flex-shrink-0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span class="text-xs text-slate-500 font-medium">Повний курс зазвичай триває від 12 до 18 місяців для стійкого результату та перебудови метаболізму</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-white border-b border-slate-50" id="comparison">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mx-auto text-center space-y-4 mb-16">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+              Чим «Мунджаро» відрізняється від альтернатив
+            </h2>
+          </div>
+
+          <div class="space-y-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-emerald-50/20 border border-emerald-100/50 p-8 rounded-3xl">
+              <div class="lg:col-span-6 space-y-4">
+                <p class="text-slate-700 text-base sm:text-lg leading-relaxed font-light">
+                  У цій категорії найближчими альтернативами є Wegovy (семаглутид) і Saxenda
+                  (ліраглутид). За даними EMA, Wegovy — це семаглутид із введенням 1 раз на тиждень, а Saxenda — ліраглутид із
+                  щоденним введенням. Мунджаро містить тирзепатид і працює через GLP-1 + GIP, тоді як Wegovy і Saxenda — через
+                  GLP-1. Це зручна й коректна відмінність для лендінгу без дискредитації конкурентів.
+                </p>
+              </div>
+              <div class="lg:col-span-6 bg-white p-0 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center space-y-2">
+                <div class="relative rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-100">
+                  <img alt="Вимірювання талії сантиметровою стрічкою" referrerpolicy="no-referrer" class="w-full h-[320px] object-cover" src="/assets/box.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-24 bg-[#0b483a] text-white relative overflow-hidden">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10">
+          <div class="space-y-4">
+            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+              Можливо, це ваша остання невдала спроба схуднути.
+            </h2>
+            <h3 class="font-display text-2xl sm:text-3xl font-light text-emerald-200">
+              І перша — яка дасть результат.
+            </h3>
+          </div>
+
+          <p class="text-base sm:text-lg text-emerald-100 max-w-2xl mx-auto font-light leading-relaxed">
+            Запишіться на консультацію та дізнайтеся, чи підходить вам сучасна програма контролю ваги.
+          </p>
+
+          <div class="pt-4">
+            <button class="js-scroll-to-form inline-flex items-center justify-center px-10 h-14 text-sm font-bold uppercase tracking-wider text-[#0b483a] bg-white hover:bg-slate-50 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95">
+              Дізнатися, чи підходить вам
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-slate-50 border-b border-slate-100" id="faq">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center space-y-4 mb-16">
+            <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Питання та відповіді:</h2>
+          </div>
+
+          <div class="space-y-4 js-faq-list">
+            <details class="group bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-colors hover:border-emerald-200">
+              <summary class="w-full flex items-center justify-between p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-lg font-bold text-slate-900 pr-4">Чи можна починати самостійно?</span>
+                <span class="p-1 rounded-full bg-slate-50 text-slate-500 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 border-t border-slate-50 leading-relaxed font-light">
+                Ні. Це рецептурний препарат, тому рішення приймає лікар. (European Medicines Agency (EMA))
+              </div>
+            </details>
+
+            <details class="group bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-colors hover:border-emerald-200">
+              <summary class="w-full flex items-center justify-between p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-lg font-bold text-slate-900 pr-4">Як часто вводиться препарат?</span>
+                <span class="p-1 rounded-full bg-slate-50 text-slate-500 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 border-t border-slate-50 leading-relaxed font-light">
+                Раз на тиждень.
+              </div>
+            </details>
+
+            <details class="group bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-colors hover:border-emerald-200">
+              <summary class="w-full flex items-center justify-between p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-lg font-bold text-slate-900 pr-4">Які найчастіші побічні ефекти?</span>
+                <span class="p-1 rounded-full bg-slate-50 text-slate-500 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 border-t border-slate-50 leading-relaxed font-light">
+                Найчастіше це нудота, діарея, інколи закреп і блювання; зазвичай вони пов'язані з ШКТ і частіше з'являються під час зміни дози.
+              </div>
+            </details>
+
+            <details class="group bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-colors hover:border-emerald-200">
+              <summary class="w-full flex items-center justify-between p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-lg font-bold text-slate-900 pr-4">Чи підходить, якщо є інші ліки?</span>
+                <span class="p-1 rounded-full bg-slate-50 text-slate-500 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 border-t border-slate-50 leading-relaxed font-light">
+                Це має оцінити лікар, бо сумісність залежить від конкретного лікування й стану пацієнта.
+              </div>
+            </details>
+
+            <details class="group bg-white border border-slate-150 rounded-2xl shadow-sm overflow-hidden transition-colors hover:border-emerald-200">
+              <summary class="w-full flex items-center justify-between p-6 text-left cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="text-base sm:text-lg font-bold text-slate-900 pr-4">Чи потрібно дотримуватися дієти?</span>
+                <span class="p-1 rounded-full bg-slate-50 text-slate-500 flex-shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform group-open:rotate-180"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </summary>
+              <div class="px-6 pb-6 pt-2 text-sm sm:text-base text-slate-600 border-t border-slate-50 leading-relaxed font-light">
+                Так, препарат застосовується разом із дієтою та фізичною активністю.
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 bg-white" id="consultation-form-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-28">
+              <div class="space-y-4">
+                <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">Форма консультації</h2>
+                <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-light">
+                  Зробіть перший крок до керованого контролю ваги та отримайте консультацію щодо можливості терапії
+                </p>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-slate-50 border border-slate-100 space-y-4 shadow-sm">
+                <div class="flex gap-4 items-start">
+                  <span class="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  </span>
+                  <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Швидкий дзвінок</h4>
+                    <p class="text-xs text-slate-500 mt-1">Запишіться на безкоштовну 15-хвилинну консультацію досвідченого лікаря-ендокринолога.</p>
+                  </div>
+                </div>
+
+                <div class="flex gap-4 items-start border-t border-slate-200/50 pt-4">
+                  <span class="p-2 rounded-xl bg-emerald-50 text-[#0b483a] flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  </span>
+                  <div>
+                    <h4 class="text-sm font-semibold text-slate-900">Отримання інформації</h4>
+                    <p class="text-xs text-slate-500 mt-1">
+                      Лікар відповість на всі ваші запитання, оцінить, чи підходить вам терапія Mounjaro,
+                      розповість про очікувані результати, можливі побічні ефекти, підбере індивідуальну схему лікування та пояснить, як досягти безпечного й стійкого зниження ваги.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-150 p-8 sm:p-10 shadow-xl relative overflow-hidden">
+              <div class="absolute top-0 left-0 right-0 h-1.5 bg-[#0b483a]"></div>
+
+              <form id="consultation-form" class="space-y-6" novalidate autocomplete="off">
+                <!-- Honeypot field: hidden from real users, bots often fill it in -->
+                <div class="hp-field" aria-hidden="true">
+                  <label for="website">Website</label>
+                  <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+                </div>
+                <!-- Timestamp anti-spam: rejects submissions made unrealistically fast -->
+                <input type="hidden" id="form-loaded-at" name="loadedAt" value="" />
+
+                <div class="space-y-2">
+                  <label for="user-name" class="text-xs font-semibold uppercase tracking-wider text-slate-500 block">Ім'я</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <input id="user-name" name="name" type="text" required minlength="2" maxlength="80" placeholder="Введіть ваше ім'я"
+                      class="w-full h-12 pl-11 pr-4 rounded-xl border border-slate-250 bg-slate-50/50 focus:bg-white focus:border-[#0b483a] focus:ring-1 focus:ring-[#0b483a] transition-all text-sm font-medium outline-none" />
+                  </div>
+                </div>
+
+                <div class="space-y-2">
+                  <label for="user-phone" class="text-xs font-semibold uppercase tracking-wider text-slate-500 block">Телефон</label>
+                  <div class="relative">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </span>
+                    <input id="user-phone" name="phone" type="tel" required pattern="^[0-9+()\s-]{7,20}$" placeholder="+380 (XX) XXX-XX-XX"
+                      class="w-full h-12 pl-11 pr-4 rounded-xl border border-slate-250 bg-slate-50/50 focus:bg-white focus:border-[#0b483a] focus:ring-1 focus:ring-[#0b483a] transition-all text-sm font-medium outline-none" />
+                  </div>
+                </div>
+
+                <div class="p-4 rounded-xl bg-emerald-50/40 border border-emerald-100/30 space-y-3">
+                  <div class="flex items-start gap-3">
+                    <input id="want-consultation-checkbox" name="wantConsultation" type="checkbox" checked
+                      class="w-5 h-5 rounded border-slate-300 text-[#0b483a] focus:ring-[#0b483a] mt-0.5 accent-[#0b483a] cursor-pointer" />
+                    <label for="want-consultation-checkbox" class="text-sm font-semibold text-slate-800 cursor-pointer select-none">
+                      Хочу консультацію
+                    </label>
+                  </div>
+                </div>
+
+                <p id="form-error" class="text-sm text-red-600 font-medium hidden"></p>
+
+                <div class="pt-2">
+                  <button type="submit" id="form-submit-btn"
+                    class="w-full inline-flex items-center justify-center px-8 h-14 text-sm font-bold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span class="js-submit-label">Дізнатися, чи підходить вам</span>
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-2 text-slate-500 text-xs justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-emerald-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Лікар або менеджер зв'яжеться найближчим часом</span>
+                </div>
+              </form>
+
+              <div id="consultation-success" class="py-12 text-center space-y-6 hidden">
+                <div class="w-16 h-16 rounded-full bg-emerald-100 text-[#0b483a] flex items-center justify-center mx-auto shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="space-y-3">
+                  <h3 class="font-display text-2xl font-bold text-slate-900">Дякуємо! Ваша заявка успішно надіслана.</h3>
+                  <p class="text-slate-600 text-sm max-w-md mx-auto leading-relaxed">
+                    Лікар або менеджер зв'яжеться з вами найближчим часом, щоб уточнити деталі та підказати наступний крок.
+                  </p>
+                </div>
+                <button id="consultation-reset-btn" class="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#0b483a] hover:underline">
+                  Надіслати ще одну заявку
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="bg-slate-50 border-t border-slate-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-200/60 pb-8">
+            <div class="flex items-center gap-2">
+              <span class="font-display text-xl font-bold tracking-widest text-[#0b483a]">МУНДЖАРО</span>
+              <span class="h-4 w-px bg-slate-300"></span>
+              <span class="text-xs text-slate-500 uppercase tracking-widest">Медична Програма</span>
+            </div>
+            <p class="text-xs text-slate-400">© <span class="js-current-year">2024</span> Мунджаро. Усі права захищено.</p>
+          </div>
+
+          <div class="p-6 bg-amber-50/40 rounded-2xl border border-amber-100/40">
+            <div class="flex gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-amber-700 flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed font-light">
+                <span class="font-bold text-slate-900 block mb-1 uppercase tracking-wider">Важливе медичне застереження:</span>
+                Інформація на сторінці не є медичною порадою. Мунджаро є рецептурним препаратом.
+                Застосування, дозування, сумісність з іншими ліками та доцільність терапії визначає лише
+                лікар. Можливі побічні реакції, зокрема з боку травної системи. Перед застосуванням
+                ознайомтесь з інструкцією та зверніться до фахівця.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-

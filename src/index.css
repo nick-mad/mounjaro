@@ -18,3 +18,14 @@ html {
               radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.03), transparent 50%);
 }
 
+/* Honeypot anti-spam field: kept in the DOM/tab order out of reach of real users,
+   but still visible/fillable to simple bots that don't execute CSS. */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
