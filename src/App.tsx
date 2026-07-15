@@ -495,15 +495,15 @@ export default function App() {
             <section className="py-20 bg-slate-50 border-b border-slate-100" id="treatment-guide">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                    <div className="max-w-3xl mx-auto text-center space-y-4 mb-16">
-                        <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
+                    <div
+                        className="bg-[#0b483a] rounded-3xl p-8 sm:p-12 text-white text-center space-y-4 mb-16 shadow-xl">
+                        <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight max-w-3xl mx-auto leading-snug">
                             Як проходить лікування Мунджаро: покроковий гайд
                         </h2>
-                        <p className="text-slate-600 text-base sm:text-lg font-light leading-relaxed">
+                        <p className="text-base sm:text-lg text-emerald-100 max-w-2xl mx-auto font-light leading-relaxed">
                             Терапія препаратом Мунджаро (тирзепатид) — це системний процес, який проходить під контролем спеціаліста і складається з чотирьох чітких етапів
                         </p>
                     </div>
-
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
                         {/* Stage 1 */}
