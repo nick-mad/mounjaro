@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Мунджаро — програма контролю ваги під наглядом лікаря</title>
     <meta name="description" content="Схудніть на 10–25 кг без виснажливих дієт та голоду. Медикаментозна програма контролю ваги Мунджаро (тирзепатид) під наглядом лікаря-ендокринолога за міжнародними протоколами." />
     <link rel="canonical" href="%VITE_SITE_URL%/" />
@@ -23,6 +25,14 @@
     <meta name="twitter:image" content="%VITE_SITE_URL%/assets/hero-weight-loss-consultation.png" />
 
     <meta name="robots" content="index, follow" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/assets/hero-weight-loss-consultation.webp" fetchpriority="high" />
+
+    <!-- Non-blocking Google Fonts loading -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" /></noscript>
   </head>
   <body>
     <div class="min-h-screen bg-white text-slate-900 font-sans">
@@ -50,7 +60,7 @@
 
       <section class="relative overflow-hidden bg-white border-b border-slate-100" id="hero-section2">
         <div class="relative flex content-center items-center justify-center min-h-[80vh]">
-          <div class="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero-weight-loss-consultation.png')]">
+          <div class="absolute top-0 w-full h-full bg-center bg-cover bg-[url('/assets/hero-weight-loss-consultation.webp')]">
             <span class="w-full h-full absolute opacity-50 bg-black"></span>
           </div>
           <div class="container relative mx-auto px-4">
@@ -127,7 +137,10 @@
             <div class="lg:col-span-5 relative">
               <div class="absolute inset-0 bg-emerald-200/40 rounded-3xl -rotate-2 opacity-50 blur-lg"></div>
               <div class="relative rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-100">
-                <img src="/assets/waist-measuring-tape.png" alt="Вимірювання талії сантиметровою стрічкою" referrerpolicy="no-referrer" class="w-full h-[500px] object-cover" />
+                <picture>
+                  <source srcset="/assets/waist-measuring-tape.webp" type="image/webp" />
+                  <img src="/assets/waist-measuring-tape.png" alt="Вимірювання талії сантиметровою стрічкою" referrerpolicy="no-referrer" width="1254" height="1254" loading="lazy" decoding="async" class="w-full h-[500px] object-cover" />
+                </picture>
               </div>
             </div>
           </div>
@@ -240,7 +253,10 @@
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-5 relative order-last lg:order-first">
               <div class="relative rounded-3xl overflow-hidden p-2 flex flex-col items-center">
-                <img src="/assets/medical-syringe-pen.png" alt="Медичний шприц-ручка або препарат Мунджаро у коробці" referrerpolicy="no-referrer" class="w-full h-[500px] object-cover rounded-2xl" />
+                <picture>
+                  <source srcset="/assets/medical-syringe-pen.webp" type="image/webp" />
+                  <img src="/assets/medical-syringe-pen.png" alt="Медичний шприц-ручка або препарат Мунджаро у коробці" referrerpolicy="no-referrer" width="1138" height="1382" loading="lazy" decoding="async" class="w-full h-[500px] object-cover rounded-2xl" />
+                </picture>
                 <div class="pt-4">
                   <button class="js-scroll-to-form inline-flex items-center justify-center px-8 h-12 text-xs font-bold uppercase tracking-wider text-white bg-[#0b483a] hover:bg-[#073026] rounded-full transition-all duration-300 shadow-md">
                     Дізнатися, чи підходить вам
@@ -314,7 +330,7 @@
               <div class="space-y-6">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 1</span>
-                  <span class="text-3xl font-bold font-mono text-emerald-200">01</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-600">01</span>
                 </div>
                 <h3 class="font-display text-xl font-bold text-slate-900">Консультація та підготовка</h3>
                 <div class="space-y-4 text-slate-700 text-sm sm:text-base font-light">
@@ -340,7 +356,7 @@
               <div class="space-y-6">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 2</span>
-                  <span class="text-3xl font-bold font-mono text-emerald-200">02</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-600">02</span>
                 </div>
                 <h3 class="font-display text-xl font-bold text-slate-900">Схема прийому та адаптація (1 укол на тиждень)</h3>
                 <p class="text-slate-600 text-sm leading-relaxed font-light">Препарат вводиться підшкірно один раз на тиждень. Для м'якої адаптації організму доза збільшується поступово:</p>
@@ -365,7 +381,7 @@
               <div class="space-y-6">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 3</span>
-                  <span class="text-3xl font-bold font-mono text-emerald-200">03</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-600">03</span>
                 </div>
                 <h3 class="font-display text-xl font-bold text-slate-900">Чого очікувати в цифрах? (Динаміка результату)</h3>
                 <p class="text-slate-600 text-sm leading-relaxed font-light">Втрата ваги відбувається поступово і залежить від початкових показників, дієти та фізичної активності:</p>
@@ -382,7 +398,7 @@
                     <span>12–18 місяців (72 тижні):</span>
                     <span class="font-bold">зниження ваги на 15–21%</span>
                   </div>
-                  <p class="text-[11px] text-slate-400 font-light italic mt-1">*за умови дотримання курсу та рекомендацій лікаря</p>
+                  <p class="text-[11px] text-slate-500 font-light italic mt-1">*за умови дотримання курсу та рекомендацій лікаря</p>
                 </div>
               </div>
             </div>
@@ -391,7 +407,7 @@
               <div class="space-y-6">
                 <div class="flex items-center justify-between">
                   <span class="text-xs font-bold text-[#0b483a] bg-emerald-50 px-3 py-1.5 rounded-full uppercase tracking-wider">Етап 4</span>
-                  <span class="text-3xl font-bold font-mono text-emerald-200">04</span>
+                  <span class="text-3xl font-bold font-mono text-emerald-600">04</span>
                 </div>
                 <h3 class="font-display text-xl font-bold text-slate-900">Тривалість курсу</h3>
                 <div class="space-y-4">
@@ -427,7 +443,10 @@
               </div>
               <div class="lg:col-span-6 bg-white p-0 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-center space-y-2">
                 <div class="relative rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-100">
-                  <img alt="Упаковка препарату Мунджаро (тирзепатид) для порівняння з альтернативами" referrerpolicy="no-referrer" class="w-full h-[320px] object-cover" src="/assets/mounjaro-box-package.png" />
+                  <picture>
+                    <source srcset="/assets/mounjaro-box-package.webp" type="image/webp" />
+                    <img alt="Упаковка препарату Мунджаро (тирзепатид) для порівняння з альтернативами" referrerpolicy="no-referrer" width="1536" height="1024" loading="lazy" decoding="async" class="w-full h-[320px] object-cover" src="/assets/mounjaro-box-package.png" />
+                  </picture>
                 </div>
               </div>
             </div>
@@ -545,7 +564,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                   </span>
                   <div>
-                    <h4 class="text-sm font-semibold text-slate-900">Швидкий дзвінок</h4>
+                    <h3 class="text-sm font-semibold text-slate-900">Швидкий дзвінок</h3>
                     <p class="text-xs text-slate-500 mt-1">Запишіться на безкоштовну 15-хвилинну консультацію досвідченого лікаря-ендокринолога.</p>
                   </div>
                 </div>
@@ -555,7 +574,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                   </span>
                   <div>
-                    <h4 class="text-sm font-semibold text-slate-900">Отримання інформації</h4>
+                    <h3 class="text-sm font-semibold text-slate-900">Отримання інформації</h3>
                     <p class="text-xs text-slate-500 mt-1">
                       Лікар відповість на всі ваші запитання, оцінить, чи підходить вам терапія Mounjaro,
                       розповість про очікувані результати, можливі побічні ефекти, підбере індивідуальну схему лікування та пояснить, як досягти безпечного й стійкого зниження ваги.
@@ -651,7 +670,7 @@
               <span class="h-4 w-px bg-slate-300"></span>
               <span class="text-xs text-slate-500 uppercase tracking-widest">Медична Програма</span>
             </div>
-            <p class="text-xs text-slate-400">© <span class="js-current-year">2024</span> Мунджаро. Усі права захищено.</p>
+            <p class="text-xs text-slate-500">© <span class="js-current-year">2024</span> Мунджаро. Усі права захищено.</p>
           </div>
 
           <div class="p-6 bg-amber-50/40 rounded-2xl border border-amber-100/40">
