@@ -1,6 +1,0 @@
-{
-  "name": "Мунджаро — Програма Контролю Ваги",
-  "description": "Презентація та лендінг програми контролю ваги під наглядом лікаря з використанням сучасних міжнародних протоколів лікування зайвої ваги.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
